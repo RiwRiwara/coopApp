@@ -18,7 +18,24 @@ namespace CoopWeb.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "AccountRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RoleName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NormalizedName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AccountRoles", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -32,7 +49,101 @@ namespace CoopWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    GroupId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    GroupName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.GroupId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "MatchRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RoleId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchRoles", x => x.UserId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    GroupId = table.Column<int>(type: "int", nullable: false),
+                    ProjectName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Chairman = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Director1 = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Director2 = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    WorkPlace = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Stages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    StageId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    StageNumber = table.Column<int>(type: "int", nullable: false),
+                    StageName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FileName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Deadline = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Description = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stages", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "UserGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    GroupId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserGroups", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -47,8 +158,6 @@ namespace CoopWeb.Migrations
                     LastName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Nickname = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProjectNameThai = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -96,9 +205,9 @@ namespace CoopWeb.Migrations
                 {
                     table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_Roles_RoleId",
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Roles",
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -167,9 +276,9 @@ namespace CoopWeb.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_Roles_RoleId",
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Roles",
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -206,83 +315,26 @@ namespace CoopWeb.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "UserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    RoleId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_UserRoles_AspNetUserRoles_UserId_RoleId",
-                        columns: x => new { x.UserId, x.RoleId },
-                        principalTable: "AspNetUserRoles",
-                        principalColumns: new[] { "UserId", "RoleId" },
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                table: "AccountRoles",
+                columns: new[] { "Id", "NormalizedName", "RoleName" },
                 values: new object[,]
                 {
-                    { "1", null, "Student", "STUDENT" },
-                    { "2", null, "Staff", "STAFF" },
-                    { "3", null, "Teacher", "TEACHER" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "Nickname", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProjectNameThai", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "1", 0, "29d54d22-24fd-48e9-820d-d98a587b84ce", "staff@example.com", false, null, null, false, null, null, null, null, "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=", null, false, null, "88519c0c-8529-449d-afd6-3faba7b50c78", false, "staff@example.com" },
-                    { "2", 0, "f35748bd-a29c-42b8-999e-42ae2dc6cc8f", "student@example.com", false, null, null, false, null, null, null, null, "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=", null, false, null, "a3396213-8307-45fc-9dca-92bdeb5dee5e", false, "student@example.com" },
-                    { "3", 0, "8ec5a661-80ff-4299-a102-d09e73158c45", "teacher@example.com", false, null, null, false, null, null, null, null, "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=", null, false, null, "58cab09c-b7f0-40b5-a873-e9490cc5d12f", false, "teacher@example.com" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { "2", "1" },
-                    { "1", "2" },
-                    { "3", "3" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "UserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { "2", "1" },
-                    { "1", "2" },
-                    { "3", "3" }
+                    { "1", "STUDENT", "Student" },
+                    { "2", "STAFF", "Staff" },
+                    { "3", "TEACHER", "Teacher" }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -297,17 +349,6 @@ namespace CoopWeb.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "RoleNameIndex",
-                table: "Roles",
-                column: "NormalizedName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_RoleId",
-                table: "UserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -326,6 +367,9 @@ namespace CoopWeb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AccountRoles");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -335,16 +379,28 @@ namespace CoopWeb.Migrations
                 name: "AspNetUserLogins");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "UserRoles");
-
-            migrationBuilder.DropTable(
                 name: "AspNetUserRoles");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
+
+            migrationBuilder.DropTable(
+                name: "MatchRoles");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
+
+            migrationBuilder.DropTable(
+                name: "Stages");
+
+            migrationBuilder.DropTable(
+                name: "UserGroups");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -1,6 +1,7 @@
 using CoopWeb.Components;
 using CoopWeb.Components.Account;
 using CoopWeb.Data;
+using CoopWeb.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,12 +33,17 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
+
+    
+
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 builder.Services.AddScoped<IPasswordHasher<ApplicationUser>, CustomPasswordHasher>();
 
 
 builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 
 
 
@@ -52,7 +58,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

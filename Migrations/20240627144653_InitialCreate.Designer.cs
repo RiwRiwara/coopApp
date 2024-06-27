@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoopWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240627074426_InitialCreate")]
+    [Migration("20240627144653_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,42 @@ namespace CoopWeb.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("CoopWeb.Data.AccountRoles", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccountRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            NormalizedName = "STUDENT",
+                            RoleName = "Student"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            NormalizedName = "STAFF",
+                            RoleName = "Staff"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            NormalizedName = "TEACHER",
+                            RoleName = "Teacher"
+                        });
+                });
 
             modelBuilder.Entity("CoopWeb.Data.ApplicationRole", b =>
                 {
@@ -48,27 +84,7 @@ namespace CoopWeb.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("Roles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            Name = "Student",
-                            NormalizedName = "STUDENT"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            Name = "Staff",
-                            NormalizedName = "STAFF"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            Name = "Teacher",
-                            NormalizedName = "TEACHER"
-                        });
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("CoopWeb.Data.ApplicationUser", b =>
@@ -122,9 +138,6 @@ namespace CoopWeb.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("ProjectNameThai")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
@@ -145,50 +158,127 @@ namespace CoopWeb.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("Users", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "29d54d22-24fd-48e9-820d-d98a587b84ce",
-                            Email = "staff@example.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "88519c0c-8529-449d-afd6-3faba7b50c78",
-                            TwoFactorEnabled = false,
-                            UserName = "staff@example.com"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f35748bd-a29c-42b8-999e-42ae2dc6cc8f",
-                            Email = "student@example.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a3396213-8307-45fc-9dca-92bdeb5dee5e",
-                            TwoFactorEnabled = false,
-                            UserName = "student@example.com"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8ec5a661-80ff-4299-a102-d09e73158c45",
-                            Email = "teacher@example.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "58cab09c-b7f0-40b5-a873-e9490cc5d12f",
-                            TwoFactorEnabled = false,
-                            UserName = "teacher@example.com"
-                        });
+            modelBuilder.Entity("CoopWeb.Data.Group", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("GroupId"));
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("GroupId");
+
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("CoopWeb.Data.MatchRoles", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("MatchRoles");
+                });
+
+            modelBuilder.Entity("CoopWeb.Data.Project", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ProjectId"));
+
+                    b.Property<string>("Chairman")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Director1")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Director2")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProjectName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("WorkPlace")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("CoopWeb.Data.Stage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StageName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("StageNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stages");
+                });
+
+            modelBuilder.Entity("CoopWeb.Data.UserGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserGroups");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -276,8 +366,6 @@ namespace CoopWeb.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -297,30 +385,6 @@ namespace CoopWeb.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("CoopWeb.Data.ApplicationUserRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
-
-                    b.ToTable("UserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "1",
-                            RoleId = "2"
-                        },
-                        new
-                        {
-                            UserId = "2",
-                            RoleId = "1"
-                        },
-                        new
-                        {
-                            UserId = "3",
-                            RoleId = "3"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -370,15 +434,6 @@ namespace CoopWeb.Migrations
                     b.HasOne("CoopWeb.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CoopWeb.Data.ApplicationUserRole", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", null)
-                        .WithOne()
-                        .HasForeignKey("CoopWeb.Data.ApplicationUserRole", "UserId", "RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

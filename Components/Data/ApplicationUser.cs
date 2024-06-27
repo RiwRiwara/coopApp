@@ -6,16 +6,21 @@ namespace CoopWeb.Data
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Nickname { get; set; }
-        public string? ProjectNameThai { get; set; }
+
     }
 
     public class ApplicationRole : IdentityRole
     {
-        // Add custom properties here
+        public new string? Name { get; set; }
     }
 
     public class ApplicationUserRole : IdentityUserRole<string>
     {
+        public new string RoleId { get; set; }
+        public new string UserId { get; set; }
+
+
+        
     }
 
 }

@@ -1,0 +1,107 @@
+@page "/review"
+
+<PageTitle>Review Projects</PageTitle>
+
+<div class="container my-5">
+    <h4 class="mb-4 fw-bold">Projects for Review</h4>
+
+    @foreach (var project in Projects)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                @project.Title
+            </div>
+            <div class="card-body">
+                <h5 class="mb-3">Project Details:</h5>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item">
+                        <p class="fw-bold">Description</p>
+                        <p>@project.Description</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="fw-bold">Chairman</p>
+                        <p>@project.Chairman</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="fw-bold">Advisor</p>
+                        <p>@project.Advisor</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="fw-bold">Status</p>
+                        <p>@project.Status</p>
+                    </li>
+                </ul>
+
+                <h5 class="mb-3">Review Actions:</h5>
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-success" @onclick="() => ApproveProject(project.Id)">Approve</button>
+                    <button class="btn btn-danger" @onclick="() => RejectProject(project.Id)">Reject</button>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@code {
+    private List<ProjectMockup> Projects;
+
+    protected override void OnInitialized()
+    {
+        // Mockup data for projects
+        Projects = new List<ProjectMockup>
+        {
+            new ProjectMockup
+            {
+                Id = 1,
+                Title = "โครงงานเรื่อง การพัฒนาเว็บไซต์สำหรับการจองห้องพัก",
+                Description = "โครงงานนี้เป็นการพัฒนาเว็บไซต์สำหรับการจองห้องพัก โดยมีความสามารถในการจองห้องพัก และจัดการห้องพัก",
+                Chairman = "นาย สมชาย ใจดี",
+                Advisor = "อ. สมหมาย ใจดี",
+                Status = "Pending"
+            },
+            new ProjectMockup
+            {
+                Id = 2,
+                Title = "โครงงานเรื่อง การพัฒนาแอปพลิเคชันการจองห้องพัก",
+                Description = "โครงงานนี้เป็นการพัฒนาแอปพลิเคชันสำหรับการจองห้องพัก โดยมีความสามารถในการจองห้องพัก และจัดการห้องพัก",
+                Chairman = "นาย สมปอง ใจดี",
+                Advisor = "อ. สมหญิง ใจดี",
+                Status = "Pending"
+            }
+        };
+    }
+
+    private Task ApproveProject(int projectId)
+    {
+        // Logic for approving the project
+        var project = Projects.FirstOrDefault(p => p.Id == projectId);
+        if (project != null)
+        {
+            project.Status = "Approved";
+        }
+        return Task.CompletedTask;
+    }
+
+    private Task RejectProject(int projectId)
+    {
+        // Logic for rejecting the project
+        var project = Projects.FirstOrDefault(p => p.Id == projectId);
+        if (project != null)
+        {
+            project.Status = "Rejected";
+        }
+        return Task.CompletedTask;
+    }
+
+    // Model for project
+    public class ProjectMockup
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Chairman { get; set; }
+        public string Advisor { get; set; }
+        public string Status { get; set; }
+    }
+}
