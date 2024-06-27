@@ -108,3 +108,4 @@ R:\Motari Team\090625\CoopWeb\CoopWeb\obj\Debug\net8.0\CoopWeb.genruntimeconfig.
 R:\Motari Team\090625\CoopWeb\CoopWeb\obj\Debug\net8.0\ref\CoopWeb.dll
 R:\Motari Team\090625\CoopWeb\CoopWeb\bin\Debug\net8.0\MySqlConnector.dll
 R:\Motari Team\090625\CoopWeb\CoopWeb\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+R:\Motari Team\090625\CoopWeb\CoopWeb\obj\Debug\net8.0\CoopWeb.sourcelink.json
