@@ -1,13 +1,19 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
 
 namespace CoopWeb.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+
+        private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IPasswordHasher<ApplicationUser> passwordHasher)
             : base(options)
         {
+            _passwordHasher = passwordHasher;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -34,11 +40,30 @@ namespace CoopWeb.Data
 
         private void SeedData(ModelBuilder builder)
         {
-            // Seed Users
+            // Seed Users with hashed passwords
             var users = new List<ApplicationUser>
             {
-                new ApplicationUser { Id = "1", UserName = "user1@example.com", Email = "user1@example.com" },
-                new ApplicationUser { Id = "2", UserName = "user2@example.com", Email = "user2@example.com" }
+                new ApplicationUser
+                {
+                    Id = "1",
+                    UserName = "staff@example.com",
+                    Email = "staff@example.com",
+                    PasswordHash = _passwordHasher.HashPassword(null, ".Awirut3526293") // Replace with hashed password
+                },
+                new ApplicationUser
+                {
+                    Id = "2",
+                    UserName = "student@example.com",
+                    Email = "student@example.com",
+                    PasswordHash = _passwordHasher.HashPassword(null, ".Awirut3526293") // Replace with hashed password
+                },
+                new ApplicationUser
+                {
+                    Id = "3",
+                    UserName = "teacher@example.com",
+                    Email = "teacher@example.com",
+                    PasswordHash = _passwordHasher.HashPassword(null, ".Awirut3526293") // Replace with hashed password
+                }
             };
 
             builder.Entity<ApplicationUser>().HasData(users);
@@ -56,8 +81,9 @@ namespace CoopWeb.Data
             // Seed UserRoles (Assign roles to users)
             var userRoles = new List<ApplicationUserRole>
             {
-                new ApplicationUserRole { UserId = "1", RoleId = "1" },
-                new ApplicationUserRole { UserId = "2", RoleId = "2" }  
+                new ApplicationUserRole { UserId = "1", RoleId = "2" },
+                new ApplicationUserRole { UserId = "2", RoleId = "1" },
+                new ApplicationUserRole { UserId = "3", RoleId = "3" }
             };
 
             builder.Entity<ApplicationUserRole>().HasData(userRoles);

@@ -148,27 +148,43 @@ namespace CoopWeb.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f53a8e6c-9283-4337-a118-234e633c2e51",
-                            Email = "user1@example.com",
+                            ConcurrencyStamp = "29d54d22-24fd-48e9-820d-d98a587b84ce",
+                            Email = "staff@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            PasswordHash = "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd036ff2-d41c-45b6-b095-00d7f6458528",
+                            SecurityStamp = "88519c0c-8529-449d-afd6-3faba7b50c78",
                             TwoFactorEnabled = false,
-                            UserName = "user1@example.com"
+                            UserName = "staff@example.com"
                         },
                         new
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "80dd3375-db4e-4d73-93e5-42fc46351715",
-                            Email = "user2@example.com",
+                            ConcurrencyStamp = "f35748bd-a29c-42b8-999e-42ae2dc6cc8f",
+                            Email = "student@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            PasswordHash = "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e4675091-dbca-4556-987c-e8772a6ce2bf",
+                            SecurityStamp = "a3396213-8307-45fc-9dca-92bdeb5dee5e",
                             TwoFactorEnabled = false,
-                            UserName = "user2@example.com"
+                            UserName = "student@example.com"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8ec5a661-80ff-4299-a102-d09e73158c45",
+                            Email = "teacher@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "58cab09c-b7f0-40b5-a873-e9490cc5d12f",
+                            TwoFactorEnabled = false,
+                            UserName = "teacher@example.com"
                         });
                 });
 
@@ -290,12 +306,17 @@ namespace CoopWeb.Migrations
                         new
                         {
                             UserId = "1",
-                            RoleId = "1"
+                            RoleId = "2"
                         },
                         new
                         {
                             UserId = "2",
-                            RoleId = "2"
+                            RoleId = "1"
+                        },
+                        new
+                        {
+                            UserId = "3",
+                            RoleId = "3"
                         });
                 });
 

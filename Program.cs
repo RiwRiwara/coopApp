@@ -32,8 +32,14 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+builder.Services.AddScoped<IPasswordHasher<ApplicationUser>, CustomPasswordHasher>();
+
+
+builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
+
+
 
 var app = builder.Build();
 

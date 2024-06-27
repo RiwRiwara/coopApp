@@ -254,8 +254,9 @@ namespace CoopWeb.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "Nickname", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProjectNameThai", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "f53a8e6c-9283-4337-a118-234e633c2e51", "user1@example.com", false, null, null, false, null, null, null, null, null, null, false, null, "fd036ff2-d41c-45b6-b095-00d7f6458528", false, "user1@example.com" },
-                    { "2", 0, "80dd3375-db4e-4d73-93e5-42fc46351715", "user2@example.com", false, null, null, false, null, null, null, null, null, null, false, null, "e4675091-dbca-4556-987c-e8772a6ce2bf", false, "user2@example.com" }
+                    { "1", 0, "29d54d22-24fd-48e9-820d-d98a587b84ce", "staff@example.com", false, null, null, false, null, null, null, null, "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=", null, false, null, "88519c0c-8529-449d-afd6-3faba7b50c78", false, "staff@example.com" },
+                    { "2", 0, "f35748bd-a29c-42b8-999e-42ae2dc6cc8f", "student@example.com", false, null, null, false, null, null, null, null, "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=", null, false, null, "a3396213-8307-45fc-9dca-92bdeb5dee5e", false, "student@example.com" },
+                    { "3", 0, "8ec5a661-80ff-4299-a102-d09e73158c45", "teacher@example.com", false, null, null, false, null, null, null, null, "A6xnQhbz4Vx2HuGl4lXwZ5U2I8iziLRFnhP5eNfIRvQ=", null, false, null, "58cab09c-b7f0-40b5-a873-e9490cc5d12f", false, "teacher@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -263,8 +264,9 @@ namespace CoopWeb.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "1", "1" },
-                    { "2", "2" }
+                    { "2", "1" },
+                    { "1", "2" },
+                    { "3", "3" }
                 });
 
             migrationBuilder.InsertData(
@@ -272,8 +274,9 @@ namespace CoopWeb.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "1", "1" },
-                    { "2", "2" }
+                    { "2", "1" },
+                    { "1", "2" },
+                    { "3", "3" }
                 });
 
             migrationBuilder.CreateIndex(

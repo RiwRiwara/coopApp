@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-
 namespace CoopWeb.Data
 {
     public class ApplicationUser : IdentityUser
