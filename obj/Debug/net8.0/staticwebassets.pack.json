@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CoopWeb.bundle.scp.css",
+      "PackagePath": "staticwebassets\\CoopWeb.bundle.scp.css"
+    },
+    {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CoopWeb.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.CoopWeb.props",
+      "PackagePath": "build\\CoopWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.CoopWeb.props",
+      "PackagePath": "buildMultiTargeting\\CoopWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.CoopWeb.props",
+      "PackagePath": "buildTransitive\\CoopWeb.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

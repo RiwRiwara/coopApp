@@ -1,0 +1,74 @@
+﻿@page "/"
+
+<Title>Student</Title>
+
+<h1>
+    รายชื่อนักศึกษาฝึกสหกิจศึกษา ประจำปีการศึกษา 2566
+</h1>
+
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th rowspan="2">No.</th>
+                    <th rowspan="2">Pro. Std.</th>
+                    <th rowspan="2">รหัส นศ.</th>
+                    <th rowspan="2">ชื่อ-สกุล</th>
+                    <th rowspan="2">ชื่อเล่น</th>
+                    <th rowspan="2">ชื่อโครงการ (ไทย)</th>
+                    <th colspan="3">ที่ปรึกษาโครงการคอมพิวเตอร์ศึกษา</th>
+                    <th rowspan="2">สถานที่ฝึกสหกิจศึกษา</th>
+                    <th colspan="12">หลังฝึก</th>
+                </tr>
+                <tr>
+                    <th>ประธาน</th>
+                    <th>กรรมการ</th>
+                    <th>กรรมการ</th>
+                    <th>ส่งบทนำ</th>
+                    <th>ส่งส่วนที่1</th>
+                    <th>พบกรรมการ</th>
+                    <th>ตรวจ format</th>
+                    <th>ให้หัวข้อโครงงาน</th>
+                    <th>แก้ไขตามที่กรรมการบอก</th>
+                    <th>ตรวจ format 100%</th>
+                    <th>ส่งแฟลชไดร์ฟ</th>
+                    <th>ส่งบทย่อ</th>
+                    <th>ส่ง full paper</th>
+                    <th>นำเสนอ</th>
+                    <th>นำเสนอในห้องเรียน</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < 10; i++)
+                {
+                    <tr>
+                        <td>1</td>
+                        <td>630410138</td>
+                        <td>นายวัชรชัย แสงหิรัญ</td>
+                        <td>กาย</td>
+                        <td>ระบบแนะนำกิจกรรมการใช้พื้นที่</td>
+                        <td>อ.ดร.กาญจนา กองมี</td>
+                        <td>อ.ธันยา พรหมมาศ</td>
+                        <td>อ.ดร.กาญจนา กองมี</td>
+                        <td>บ.ไอเน็ตซอฟท์ จำกัด</td>
+                        <td>15 พ.ย.66</td>
+                        <td>15 ธ.ค.66</td>
+                        <td>5 ม.ค.67</td>
+                        <td>15 ม.ค.67</td>
+                        <td>31 ม.ค.67</td>
+                        <td>5 ก.พ.67</td>
+                        <td>20 ก.พ.67</td>
+                        <td>25 ก.พ.67</td>
+                        <td>CO1,12,14</td>
+                        <td>29 ก.พ.67</td>
+                        <td>นำเสนอ</td>
+                        <td>1 เม.ย.67</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
