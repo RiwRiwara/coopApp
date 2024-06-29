@@ -1,0 +1,41 @@
+@page "/profile"
+@using Microsoft.AspNetCore.Identity
+@using CoopWeb.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+@code {
+    private ApplicationUser currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await UserManager.GetUserAsync(SignInManager.Context.User);
+        if (user != null)
+        {
+            currentUser = user;
+        }
+    }
+}
+
+@if (currentUser == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="profile-card">
+        <h3>@currentUser.FirstName @currentUser.LastName (@currentUser.Nickname)</h3>
+        <p><strong>Email:</strong> @currentUser.Email</p>
+        <p><strong>Username:</strong> @currentUser.UserName</p>
+    </div>
+}
+
+<style>
+    .profile-card {
+        border: 1px solid #ccc;
+        padding: 16px;
+        margin: 16px 0;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+</style>

@@ -1,8 +1,12 @@
 @page "/myproject"
-@using CoopWeb.Services
 @using CoopWeb.Data
-
-@inject IRoleService RoleService
+@using CoopWeb.Services
+@using CoopWeb.Utils
+@using Microsoft.AspNetCore.Identity
+@inject IUserService UserService
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
 
 <PageTitle>My Project</PageTitle>
 
@@ -127,7 +131,6 @@ new UploadStage { Id = 11, Title = "นำเสนอ", Status = "New" },
 
     protected override async Task OnInitializedAsync()
     {
-        var roles = (await RoleService.GetRolesAsync()).ToList();
-        var testRoleMatch = await RoleService.GetMatchRolesByUserIdAsync("ca99dd8e-d485-45a7-bff2-d2c057346bd0");
+
     }
 }

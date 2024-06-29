@@ -1,0 +1,29 @@
+@page "/debug"
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Authentication State</h3>
+
+@code {
+    private AuthenticationState authState;
+    private ClaimsPrincipal user;
+    private string roles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authState.User;
+
+        var roleClaims = user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+        roles = string.Join(", ", roleClaims);
+
+        // Logging roles for debugging
+        Console.WriteLine($"User: {user.Identity.Name}");
+        Console.WriteLine($"IsAuthenticated: {user.Identity.IsAuthenticated}");
+        Console.WriteLine($"Roles: {roles}");
+    }
+}
+
+<p>User: @user.Identity.Name</p>
+<p>IsAuthenticated: @user.Identity.IsAuthenticated</p>
+<p>Roles: @roles</p>

@@ -1,0 +1,57 @@
+@page "/students"
+
+@using CoopWeb.Data
+@using CoopWeb.Services
+@using CoopWeb.Utils
+@using Microsoft.AspNetCore.Identity
+@inject IUserService UserService
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+
+
+<h3>All Users</h3>
+
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Full Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in students)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@user.FullName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<ApplicationUser> students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CheckUserRole.Initialize(UserManager, SignInManager);
+
+        var isStaff = await CheckUserRole.IsStaffAsync();
+        if (!isStaff)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            students = await UserService.GetAllUsersAsync();
+        }
+    }
+}

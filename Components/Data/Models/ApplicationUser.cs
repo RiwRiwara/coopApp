@@ -7,21 +7,19 @@ namespace CoopWeb.Data
         public string? LastName { get; set; }
         public string? Nickname { get; set; }
 
+        public string? FullName => $"{FirstName} {LastName}";
+
+        public string? RoleId { get; set; }
+
+        public string? GroupId { get; set; }
+
+
     }
 
     public class ApplicationRole : IdentityRole
     {
-        public new string? Name { get; set; }
     }
 
-    public class ApplicationUserRole : IdentityUserRole<string>
-    {
-        public new string RoleId { get; set; }
-        public new string UserId { get; set; }
-
-
-        
-    }
 
 }
 

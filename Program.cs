@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -34,17 +34,17 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 
-    
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
-builder.Services.AddScoped<IPasswordHasher<ApplicationUser>, CustomPasswordHasher>();
 
 
 builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IRoleService, RoleService>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireStaffRole", policy => policy.RequireRole("Staff"));
+});
 
 
 var app = builder.Build();
@@ -69,7 +69,7 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-// Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
 
 app.Run();

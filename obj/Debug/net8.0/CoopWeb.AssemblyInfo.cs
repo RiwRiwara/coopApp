@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CoopWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94649847b105f12d0e94eaf545b056ad320acdfe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5b20477f1b1616f13bcb0c801a3435e6034423a")]
 [assembly: System.Reflection.AssemblyProductAttribute("CoopWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CoopWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

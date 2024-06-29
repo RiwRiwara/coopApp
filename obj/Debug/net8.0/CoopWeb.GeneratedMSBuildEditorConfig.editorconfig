@@ -182,6 +182,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/Debug.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWJ1Zy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -190,12 +194,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/MyProfile.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNeVByb2ZpbGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/MyProject.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNeVByb2plY3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/Review.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/StudentList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdHVkZW50TGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/Weather.razor]

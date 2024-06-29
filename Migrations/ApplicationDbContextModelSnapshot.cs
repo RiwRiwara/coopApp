@@ -22,42 +22,6 @@ namespace CoopWeb.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("CoopWeb.Data.AccountRoles", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AccountRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            NormalizedName = "STUDENT",
-                            RoleName = "Student"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            NormalizedName = "STAFF",
-                            RoleName = "Staff"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            NormalizedName = "TEACHER",
-                            RoleName = "Teacher"
-                        });
-                });
-
             modelBuilder.Entity("CoopWeb.Data.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -82,6 +46,26 @@ namespace CoopWeb.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Staff",
+                            NormalizedName = "STAFF"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Teacher",
+                            NormalizedName = "TEACHER"
+                        });
                 });
 
             modelBuilder.Entity("CoopWeb.Data.ApplicationUser", b =>
@@ -104,6 +88,9 @@ namespace CoopWeb.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("GroupId")
                         .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
@@ -135,6 +122,9 @@ namespace CoopWeb.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("RoleId")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
@@ -155,6 +145,68 @@ namespace CoopWeb.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bb1e3200-6799-4ece-816e-237eb7e86e72",
+                            Email = "student@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            LockoutEnabled = false,
+                            Nickname = "Johnny",
+                            NormalizedEmail = "STUDENT@EXAMPLE.COM",
+                            NormalizedUserName = "STUDENT@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDLFyIRn3TD+Y7XhKzn0/XtHoArPXJyTRuV5+w5KhKQkesrGe8Mb5cITJVp2c4ZNEg==",
+                            PhoneNumberConfirmed = false,
+                            RoleId = "1",
+                            SecurityStamp = "28715d94-2858-40b5-97cb-5b9391fb1fe5",
+                            TwoFactorEnabled = false,
+                            UserName = "student@example.com"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2f542b39-9f57-4253-8974-2e49e0b4c117",
+                            Email = "staff@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Jane",
+                            LastName = "Doe",
+                            LockoutEnabled = false,
+                            Nickname = "Janie",
+                            NormalizedEmail = "STAFF@EXAMPLE.COM",
+                            NormalizedUserName = "STAFF@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOcz3WOjhpM6scRafuVM38+o+i9hNHnyI5w4MOxo7YyLWSb2H+2K6DDK3Ec6sTTWXA==",
+                            PhoneNumberConfirmed = false,
+                            RoleId = "2",
+                            SecurityStamp = "aec6423f-c239-471e-9b0e-5849308c3693",
+                            TwoFactorEnabled = false,
+                            UserName = "staff@example.com"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0c79800c-ba8d-494c-8aa6-6acf8666b547",
+                            Email = "teacher@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Jim",
+                            LastName = "Beam",
+                            LockoutEnabled = false,
+                            Nickname = "Jimmy",
+                            NormalizedEmail = "TEACHER@EXAMPLE.COM",
+                            NormalizedUserName = "TEACHER@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO14IrSJR0AQrQLvoMnf9EseBsnqEltVMGRu7WihlQ0cw9rNkmbJO62xvGw8D1Vvgg==",
+                            PhoneNumberConfirmed = false,
+                            RoleId = "3",
+                            SecurityStamp = "649da712-7f56-4b16-9d7c-7506f399d0ab",
+                            TwoFactorEnabled = false,
+                            UserName = "teacher@example.com"
+                        });
                 });
 
             modelBuilder.Entity("CoopWeb.Data.Group", b =>
@@ -172,19 +224,6 @@ namespace CoopWeb.Migrations
                     b.HasKey("GroupId");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("CoopWeb.Data.MatchRoles", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("MatchRoles");
                 });
 
             modelBuilder.Entity("CoopWeb.Data.Project", b =>
@@ -257,25 +296,6 @@ namespace CoopWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stages");
-                });
-
-            modelBuilder.Entity("CoopWeb.Data.UserGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserGroups");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -363,6 +383,23 @@ namespace CoopWeb.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        },
+                        new
+                        {
+                            UserId = "2",
+                            RoleId = "2"
+                        },
+                        new
+                        {
+                            UserId = "3",
+                            RoleId = "3"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

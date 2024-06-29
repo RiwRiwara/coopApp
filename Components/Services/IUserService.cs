@@ -6,7 +6,13 @@ namespace CoopWeb.Services
 {
     public interface IUserService
     {
+
         Task<ApplicationUser> GetUserByIdAsync(string userId);
+
+
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
+
+
     }
+    
 }
