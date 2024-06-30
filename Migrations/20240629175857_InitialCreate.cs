@@ -37,27 +37,11 @@ namespace CoopWeb.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Groups",
-                columns: table => new
-                {
-                    GroupId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    GroupName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Groups", x => x.GroupId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
                     ProjectId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    GroupId = table.Column<int>(type: "int", nullable: false),
                     ProjectName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Chairman = table.Column<string>(type: "longtext", nullable: true)
@@ -65,6 +49,8 @@ namespace CoopWeb.Migrations
                     Director1 = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Director2 = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Advisor = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     WorkPlace = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -106,6 +92,8 @@ namespace CoopWeb.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    StudentID = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     FirstName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LastName = table.Column<string>(type: "longtext", nullable: true)
@@ -114,8 +102,7 @@ namespace CoopWeb.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     RoleId = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    GroupId = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -283,23 +270,23 @@ namespace CoopWeb.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "GroupId", "LastName", "LockoutEnabled", "LockoutEnd", "Nickname", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RoleId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                table: "Projects",
+                columns: new[] { "ProjectId", "Advisor", "Chairman", "Director1", "Director2", "ProjectName", "WorkPlace" },
                 values: new object[,]
                 {
-                    { "1", 0, "bb1e3200-6799-4ece-816e-237eb7e86e72", "student@example.com", false, "John", null, "Doe", false, null, "Johnny", "STUDENT@EXAMPLE.COM", "STUDENT@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDLFyIRn3TD+Y7XhKzn0/XtHoArPXJyTRuV5+w5KhKQkesrGe8Mb5cITJVp2c4ZNEg==", null, false, "1", "28715d94-2858-40b5-97cb-5b9391fb1fe5", false, "student@example.com" },
-                    { "2", 0, "2f542b39-9f57-4253-8974-2e49e0b4c117", "staff@example.com", false, "Jane", null, "Doe", false, null, "Janie", "STAFF@EXAMPLE.COM", "STAFF@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOcz3WOjhpM6scRafuVM38+o+i9hNHnyI5w4MOxo7YyLWSb2H+2K6DDK3Ec6sTTWXA==", null, false, "2", "aec6423f-c239-471e-9b0e-5849308c3693", false, "staff@example.com" },
-                    { "3", 0, "0c79800c-ba8d-494c-8aa6-6acf8666b547", "teacher@example.com", false, "Jim", null, "Beam", false, null, "Jimmy", "TEACHER@EXAMPLE.COM", "TEACHER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEO14IrSJR0AQrQLvoMnf9EseBsnqEltVMGRu7WihlQ0cw9rNkmbJO62xvGw8D1Vvgg==", null, false, "3", "649da712-7f56-4b16-9d7c-7506f399d0ab", false, "teacher@example.com" }
+                    { 1, null, null, null, null, "Project 1", null },
+                    { 2, null, null, null, null, "Project 2", null }
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
+                table: "Users",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "Nickname", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProjectId", "RoleId", "SecurityStamp", "StudentID", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", "1" },
-                    { "2", "2" },
-                    { "3", "3" }
+                    { "77eb5d50-b5a9-47e7-8f40-e09db3ba5591", 0, "a71f9d14-29df-4e16-a35f-66214a86f8d7", "student@example.com", false, "John", "Doe", false, null, "Johnny", "STUDENT@EXAMPLE.COM", "STUDENT@EXAMPLE.COM", "AQAAAAIAAYagAAAAENjn1eZlRcUQyWBTFU2IpNlfum2TqK8/bQuVRJKC9n8jJkrJpNN4/JGzRVGzu3bHlQ==", null, false, 0, "1", "47f92c97-c4fc-45ba-a7ef-51700a3556b7", "00001", false, "student@example.com" },
+                    { "92e55404-ea55-4154-9745-0fcf7023805b", 0, "5817b718-f7e2-4de9-9d89-5742e8905554", "staff@example.com", false, "Jane", "Doe", false, null, "Janie", "STAFF@EXAMPLE.COM", "STAFF@EXAMPLE.COM", "AQAAAAIAAYagAAAAEIHbfVGlCfqtS4Wqz+T4KBCuIpnVmnEUL6CQK4OoseLpsBya2MScS2weKdaFYOpOPQ==", null, false, 0, "2", "54430f6c-fc2e-4a58-bab8-e59c36685af8", null, false, "staff@example.com" },
+                    { "a079b0ff-e38d-48f8-8a95-3be2e4b4d64c", 0, "4f7dbc12-f879-4301-bdad-2c9148b24c33", "teacher@example.com", false, "Jim", "Beam", false, null, "Jimmy", "TEACHER@EXAMPLE.COM", "TEACHER@EXAMPLE.COM", "AQAAAAIAAYagAAAAELXulS2BZkjJZsks3W12BaYFqzKDFAmL+8pAMC9lAvOaPcm+GkxPJiJiMdxfw27x6g==", null, false, 0, "3", "3bfa5942-4d9e-4ff1-ab32-25a060190289", null, false, "teacher@example.com" },
+                    { "f5f6de57-a386-4c44-83f4-0345534a9cfe", 0, "1897439f-2415-4f20-8115-078e02aae811", "student2@example.com", false, "Jeed", "Deed", false, null, "asdasd", "STUDENT2@EXAMPLE.COM", "STUDENT2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEI8KBlhpNJLLmvDYgUhCWwT7PGnvKolfMC0Cocq4Vh54SZkHXaqTmiVolS6m9g2UOQ==", null, false, 0, "1", "bb25a725-0949-4f32-babe-22b71f26dcb6", "00002", false, "student2@example.com" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -357,9 +344,6 @@ namespace CoopWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Projects");

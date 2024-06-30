@@ -202,8 +202,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNeVByb2plY3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/Review.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXZpZXcucmF6b3I=
+[R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/Projects.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9qZWN0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [R:/Motari Team/090625/CoopWeb/CoopWeb/Components/Pages/StudentList.razor]

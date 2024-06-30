@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\js\\confirmDialog.js",
+      "PackagePath": "staticwebassets\\js\\confirmDialog.js"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CoopWeb.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

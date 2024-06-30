@@ -5,6 +5,8 @@ using CoopWeb.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
+using Radzen.Blazor;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,11 +42,8 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ProjectService>();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("RequireStaffRole", policy => policy.RequireRole("Staff"));
-});
 
 
 var app = builder.Build();

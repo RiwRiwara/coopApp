@@ -6,12 +6,17 @@ namespace CoopWeb.Data
     {
         [Key]
         public int ProjectId { get; set; }
-        public int GroupId { get; set; }
         public string? ProjectName { get; set; }
         public string? Chairman { get; set; }
         public string? Director1 { get; set; }
         public string? Director2 { get; set; }
+        public string? Advisor { get; set; }
         public string? WorkPlace { get; set; }
+
+        public IEnumerable<ApplicationUser> GetMembers(ApplicationDbContext context)
+        {
+            return context.Users.Where(u => u.ProjectId == ProjectId);
+        }
 
     }
 

@@ -3,6 +3,7 @@ namespace CoopWeb.Data
 {
     public class ApplicationUser : IdentityUser
     {
+        public string? StudentID { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Nickname { get; set; }
@@ -11,7 +12,15 @@ namespace CoopWeb.Data
 
         public string? RoleId { get; set; }
 
-        public string? GroupId { get; set; }
+        public int ProjectId { get; set; }
+
+        // update project id
+        public void UpdateProjectId(int projectId)
+        {
+            ProjectId = projectId;
+        }
+
+        
 
 
     }

@@ -109,3 +109,5 @@ R:\Motari Team\090625\CoopWeb\CoopWeb\obj\Debug\net8.0\refint\CoopWeb.dll
 R:\Motari Team\090625\CoopWeb\CoopWeb\obj\Debug\net8.0\CoopWeb.pdb
 R:\Motari Team\090625\CoopWeb\CoopWeb\obj\Debug\net8.0\CoopWeb.genruntimeconfig.cache
 R:\Motari Team\090625\CoopWeb\CoopWeb\obj\Debug\net8.0\ref\CoopWeb.dll
+R:\Motari Team\090625\CoopWeb\CoopWeb\bin\Debug\net8.0\Radzen.Blazor.dll
+R:\Motari Team\090625\CoopWeb\CoopWeb\bin\Debug\net8.0\System.Linq.Dynamic.Core.dll

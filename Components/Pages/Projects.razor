@@ -1,0 +1,214 @@
+@page "/projects"
+@rendermode InteractiveServer
+
+@using CoopWeb.Data
+@using CoopWeb.Services
+@using CoopWeb.Utils
+@using Microsoft.AspNetCore.Identity
+@inject ProjectService ProjectService
+@inject IUserService UserService
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+@using CoopWeb.Utils
+<PageTitle>Review Projects</PageTitle>
+
+<div class="container my-5">
+    <h4 class="mb-4 fw-bold">Projects for Review</h4>
+    @if (AllProjects == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else if (AllProjects.Count == 0)
+    {
+        <p><em>No projects available.</em></p>
+    }
+    else
+    {
+        <RadzenButton Click="@CreateNewProject" Text="Create New Project" ButtonStyle="ButtonStyle.Success"></RadzenButton>
+        <div class="container p-2 shadow-sm rounded my-4">
+            @if (showForm)
+            {
+                @if(isEditMode) {
+                    <h2>Update Project</h2>
+                }else{
+                    <h2>Create new Project</h2>
+                }
+                <EditForm Model="@currentProject" OnValidSubmit="HandleValidSubmit" class="d-flex flex-column gap-2">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label>Project Name</label>
+                        <InputText class="form-control" @bind-Value="currentProject.ProjectName" />
+                    </div>
+                    <div class="form-group">
+                        <label>Chairman</label>
+                        <InputText class="form-control" @bind-Value="currentProject.Chairman" />
+                    </div>
+                    <div class="form-group">
+                        <label>Advisor</label>
+                        <InputText class="form-control" @bind-Value="currentProject.Director1" />
+                    </div>
+                    <div class="form-group">
+                        <label>Advisor</label>
+                        <InputText class="form-control" @bind-Value="currentProject.Director2" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+                </EditForm>
+            }
+        </div>
+
+        @foreach (var project in AllProjects)
+        {
+            <div class="mb-3 container shadow-sm rounded p-2">
+                <h3 class="fw-bold ">
+                    Project Id : [@project.ProjectId] - 
+                    @project.ProjectName
+                </h3>
+
+                <div class="my-2">
+                    <RadzenStack Gap="1rem" Class="">
+                        <RadzenAccordion Multiple="true"
+                                        Collapse=@(args => Change(args, "Accordion", "collapsed"))
+                                        Expand=@(args => Change(args, "Accordion", "expanded"))>
+                            <Items>
+                                <RadzenAccordionItem Text="สมาชิก" Icon="account_box">
+                                    @if (!ProjectMembers.ContainsKey(project.ProjectId))
+                                    {
+                                        <p><em>Loading members...</em></p>
+                                    }
+                                    else
+                                    {
+                                        <ul class="list-group mb-1">
+                                            @foreach (var member in ProjectMembers[project.ProjectId])
+                                            {
+                                                <li class="list-group-item">
+                                                    @member.StudentID | @member.FirstName @member.LastName | @member.Nickname
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </RadzenAccordionItem>
+                                <RadzenAccordionItem Text="กรรมการ" Icon="account_box">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <p>ประธาน : @project.Chairman</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <p>กรรมการ 1 : @project.Director2</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <p>กรรมการ 2 : @project.Director2</p>
+                                        </li>
+                                    </ul>
+                                </RadzenAccordionItem>
+                                <RadzenAccordionItem Text="การส่งงงาน" Icon="account_box">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <p>รอบที่ 1 : ...</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <p>รอบที่ 2 : ...</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <p>รอบที่ 3 : ...</p>
+                                        </li>
+                                    </ul>
+                                </RadzenAccordionItem>
+                            </Items>
+                        </RadzenAccordion>
+                    </RadzenStack>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-primary" @onclick="() => EditProject(project)">
+                        Edit Project
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<Project> AllProjects;
+    private Dictionary<int, List<ApplicationUser>> ProjectMembers = new Dictionary<int, List<ApplicationUser>>();
+    private Project currentProject = new Project();
+    private bool showForm = false;
+    private bool isEditMode = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CheckUserRole.Initialize(UserManager, SignInManager);
+
+        var isStaff = await CheckUserRole.IsStaffAsync();
+        if (!isStaff)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+        await ReloadProjects();
+
+        }
+
+    }
+
+    private async Task ReloadProjects()
+    {
+        AllProjects = (await ProjectService.GetAllProjectsAsync()).ToList();
+        await LoadProjectMembers();
+    }
+
+    private async Task LoadProjectMembers()
+    {
+        foreach (var project in AllProjects)
+        {
+            ProjectMembers[project.ProjectId] = (await ProjectService.GetProjectMembersAsync(project.ProjectId)).ToList();
+        }
+    }
+
+    private void CreateNewProject()
+    {
+        currentProject = new Project();
+        showForm = true;
+        isEditMode = false;
+    }
+
+    private void EditProject(Project project)
+    {
+        currentProject = project;
+        showForm = true;
+        isEditMode = true;
+    }
+
+    private async Task DeleteProject(int projectId)
+    {
+        await ProjectService.DeleteProjectAsync(projectId);
+        await ReloadProjects();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (isEditMode)
+        {
+            await ProjectService.UpdateProjectAsync(currentProject);
+        }
+        else
+        {
+            await ProjectService.CreateProjectAsync(currentProject);
+        }
+        showForm = false;
+        await ReloadProjects();
+    }
+
+    private void Cancel()
+    {
+        showForm = false;
+    }
+
+    void Change(object value, string name, string action)
+    {
+    }
+}

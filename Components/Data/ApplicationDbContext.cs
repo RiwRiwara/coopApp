@@ -19,8 +19,6 @@ namespace CoopWeb.Data
 
 
 
-        public DbSet<Group> Groups { get; set; }
-
         public DbSet<Project> Projects { get; set; }
         public DbSet<Stage> Stages { get; set; }
 
@@ -54,19 +52,6 @@ namespace CoopWeb.Data
             {
                 new ApplicationUser
                 {
-                    Id = "1",
-                    UserName = "student@example.com",
-                    NormalizedUserName = "STUDENT@EXAMPLE.COM",
-                    Email = "student@example.com",
-                    NormalizedEmail = "STUDENT@EXAMPLE.COM",
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Nickname = "Johnny",
-                    RoleId = "1"
-                },
-                new ApplicationUser
-                {
-                    Id = "2",
                     UserName = "staff@example.com",
                     NormalizedUserName = "STAFF@EXAMPLE.COM",
                     Email = "staff@example.com",
@@ -78,7 +63,6 @@ namespace CoopWeb.Data
                 },
                 new ApplicationUser
                 {
-                    Id = "3",
                     UserName = "teacher@example.com",
                     NormalizedUserName = "TEACHER@EXAMPLE.COM",
                     Email = "teacher@example.com",
@@ -95,17 +79,16 @@ namespace CoopWeb.Data
                 user.PasswordHash = _passwordHasher.HashPassword(user, ".Password123!");
             }
 
+            var students = new StudentSeed(_passwordHasher).GetStudents();
+            users.AddRange(students);
+
             builder.Entity<ApplicationUser>().HasData(users);
 
+            var projects = new ProjectSeed().GetProjects();
+            builder.Entity<Project>().HasData(projects);
 
-            var userRoles = new List<IdentityUserRole<string>>
-            {
-                new IdentityUserRole<string> { UserId = "1", RoleId = "1" },
-                new IdentityUserRole<string> { UserId = "2", RoleId = "2" },
-                new IdentityUserRole<string> { UserId = "3", RoleId = "3" }
-            };
 
-            builder.Entity<IdentityUserRole<string>>().HasData(userRoles);
+
 
         }
 

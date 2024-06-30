@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoopWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240629122329_InitialCreate")]
+    [Migration("20240629175857_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -93,9 +93,6 @@ namespace CoopWeb.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("GroupId")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
@@ -125,10 +122,16 @@ namespace CoopWeb.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RoleId")
                         .HasColumnType("longtext");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("StudentID")
                         .HasColumnType("longtext");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -152,29 +155,9 @@ namespace CoopWeb.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = "92e55404-ea55-4154-9745-0fcf7023805b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bb1e3200-6799-4ece-816e-237eb7e86e72",
-                            Email = "student@example.com",
-                            EmailConfirmed = false,
-                            FirstName = "John",
-                            LastName = "Doe",
-                            LockoutEnabled = false,
-                            Nickname = "Johnny",
-                            NormalizedEmail = "STUDENT@EXAMPLE.COM",
-                            NormalizedUserName = "STUDENT@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDLFyIRn3TD+Y7XhKzn0/XtHoArPXJyTRuV5+w5KhKQkesrGe8Mb5cITJVp2c4ZNEg==",
-                            PhoneNumberConfirmed = false,
-                            RoleId = "1",
-                            SecurityStamp = "28715d94-2858-40b5-97cb-5b9391fb1fe5",
-                            TwoFactorEnabled = false,
-                            UserName = "student@example.com"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f542b39-9f57-4253-8974-2e49e0b4c117",
+                            ConcurrencyStamp = "5817b718-f7e2-4de9-9d89-5742e8905554",
                             Email = "staff@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jane",
@@ -183,18 +166,19 @@ namespace CoopWeb.Migrations
                             Nickname = "Janie",
                             NormalizedEmail = "STAFF@EXAMPLE.COM",
                             NormalizedUserName = "STAFF@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOcz3WOjhpM6scRafuVM38+o+i9hNHnyI5w4MOxo7YyLWSb2H+2K6DDK3Ec6sTTWXA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIHbfVGlCfqtS4Wqz+T4KBCuIpnVmnEUL6CQK4OoseLpsBya2MScS2weKdaFYOpOPQ==",
                             PhoneNumberConfirmed = false,
+                            ProjectId = 0,
                             RoleId = "2",
-                            SecurityStamp = "aec6423f-c239-471e-9b0e-5849308c3693",
+                            SecurityStamp = "54430f6c-fc2e-4a58-bab8-e59c36685af8",
                             TwoFactorEnabled = false,
                             UserName = "staff@example.com"
                         },
                         new
                         {
-                            Id = "3",
+                            Id = "a079b0ff-e38d-48f8-8a95-3be2e4b4d64c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0c79800c-ba8d-494c-8aa6-6acf8666b547",
+                            ConcurrencyStamp = "4f7dbc12-f879-4301-bdad-2c9148b24c33",
                             Email = "teacher@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jim",
@@ -203,30 +187,58 @@ namespace CoopWeb.Migrations
                             Nickname = "Jimmy",
                             NormalizedEmail = "TEACHER@EXAMPLE.COM",
                             NormalizedUserName = "TEACHER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO14IrSJR0AQrQLvoMnf9EseBsnqEltVMGRu7WihlQ0cw9rNkmbJO62xvGw8D1Vvgg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELXulS2BZkjJZsks3W12BaYFqzKDFAmL+8pAMC9lAvOaPcm+GkxPJiJiMdxfw27x6g==",
                             PhoneNumberConfirmed = false,
+                            ProjectId = 0,
                             RoleId = "3",
-                            SecurityStamp = "649da712-7f56-4b16-9d7c-7506f399d0ab",
+                            SecurityStamp = "3bfa5942-4d9e-4ff1-ab32-25a060190289",
                             TwoFactorEnabled = false,
                             UserName = "teacher@example.com"
+                        },
+                        new
+                        {
+                            Id = "77eb5d50-b5a9-47e7-8f40-e09db3ba5591",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a71f9d14-29df-4e16-a35f-66214a86f8d7",
+                            Email = "student@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            LockoutEnabled = false,
+                            Nickname = "Johnny",
+                            NormalizedEmail = "STUDENT@EXAMPLE.COM",
+                            NormalizedUserName = "STUDENT@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENjn1eZlRcUQyWBTFU2IpNlfum2TqK8/bQuVRJKC9n8jJkrJpNN4/JGzRVGzu3bHlQ==",
+                            PhoneNumberConfirmed = false,
+                            ProjectId = 0,
+                            RoleId = "1",
+                            SecurityStamp = "47f92c97-c4fc-45ba-a7ef-51700a3556b7",
+                            StudentID = "00001",
+                            TwoFactorEnabled = false,
+                            UserName = "student@example.com"
+                        },
+                        new
+                        {
+                            Id = "f5f6de57-a386-4c44-83f4-0345534a9cfe",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1897439f-2415-4f20-8115-078e02aae811",
+                            Email = "student2@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Jeed",
+                            LastName = "Deed",
+                            LockoutEnabled = false,
+                            Nickname = "asdasd",
+                            NormalizedEmail = "STUDENT2@EXAMPLE.COM",
+                            NormalizedUserName = "STUDENT2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI8KBlhpNJLLmvDYgUhCWwT7PGnvKolfMC0Cocq4Vh54SZkHXaqTmiVolS6m9g2UOQ==",
+                            PhoneNumberConfirmed = false,
+                            ProjectId = 0,
+                            RoleId = "1",
+                            SecurityStamp = "bb25a725-0949-4f32-babe-22b71f26dcb6",
+                            StudentID = "00002",
+                            TwoFactorEnabled = false,
+                            UserName = "student2@example.com"
                         });
-                });
-
-            modelBuilder.Entity("CoopWeb.Data.Group", b =>
-                {
-                    b.Property<int>("GroupId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("GroupId"));
-
-                    b.Property<string>("GroupName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("GroupId");
-
-                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("CoopWeb.Data.Project", b =>
@@ -237,6 +249,9 @@ namespace CoopWeb.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ProjectId"));
 
+                    b.Property<string>("Advisor")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Chairman")
                         .HasColumnType("longtext");
 
@@ -245,9 +260,6 @@ namespace CoopWeb.Migrations
 
                     b.Property<string>("Director2")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ProjectName")
                         .HasColumnType("longtext");
@@ -258,6 +270,18 @@ namespace CoopWeb.Migrations
                     b.HasKey("ProjectId");
 
                     b.ToTable("Projects");
+
+                    b.HasData(
+                        new
+                        {
+                            ProjectId = 1,
+                            ProjectName = "Project 1"
+                        },
+                        new
+                        {
+                            ProjectId = 2,
+                            ProjectName = "Project 2"
+                        });
                 });
 
             modelBuilder.Entity("CoopWeb.Data.Stage", b =>
@@ -386,23 +410,6 @@ namespace CoopWeb.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "1",
-                            RoleId = "1"
-                        },
-                        new
-                        {
-                            UserId = "2",
-                            RoleId = "2"
-                        },
-                        new
-                        {
-                            UserId = "3",
-                            RoleId = "3"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

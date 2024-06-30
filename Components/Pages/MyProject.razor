@@ -7,101 +7,93 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 @inject NavigationManager NavigationManager
+@inject SignInManager<ApplicationUser> SignInManager
 
 <PageTitle>My Project</PageTitle>
 
 <div class="container my-5">
-
-    <h4 class="mb-4 fw-bold">My Group</h4>
-    <div class="card mb-3">
-        <div class="card-header">
-            Group Name 
-        </div>
-        <div class="card-body">
-            <h5 class="">Members:</h5>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    นาย สมชาย ใจดี
-                </li>
-                <li class="list-group-item">
-                    นาย สมหมาย ใจดี
-                </li>
-                <li class="list-group-item">
-                    นาย สมปอง ใจดี
-                </li>
-            </ul>
-        </div>
-    </div>
-    <h4 class="mb-4 fw-bold">Project Detail</h4>
-    <div class="card mb-3">
-
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <p class="fw-bold">Project Title</p>
-                    <p>โครงงานเรื่อง การพัฒนาเว็บไซต์สำหรับการจองห้องพัก</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="fw-bold">Project Description</p>
-                    <p>โครงงานนี้เป็นการพัฒนาเว็บไซต์สำหรับการจองห้องพัก โดยมีความสามารถในการจองห้องพัก และจัดการห้องพัก</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="fw-bold">Chairman</p>
-                    <p>นาย สมชาย ใจดี</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="fw-bold">Advisor</p>
-                    <p>อ. สมหมาย ใจดี</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="fw-bold">Status</p>
-                    <p>Approved</p>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <h4 class="mb-4 fw-bold">Upload Process Stages</h4>
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        @foreach (var stage in UploadStages)
-        {
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-row gap-2 align-items-center mb-4">
-                            <div class="h5">@stage.Title</div>
-                            <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
-                            <div class="text-muted ms-auto">Deadline: 15 มกราคม 2567</div>
-                        </div>
-                        <form>
-                            <div class="mb-3">
-                                <input class="form-control" type="file" id="@($"upload_{stage.Id}")">
-                            </div>
-                            <button type="button" class="btn btn-primary">Upload</button>
-                        </form>
-                    </div>
-
-                </div>
+    @if (ProjectData == null)
+    {
+        <p><em>
+            You are not a member of any project group. Please contact the project chairman for more information.
+        </em></p>
+    }
+    else
+    {
+        <h4 class="mb-4 fw-bold">My Group</h4>
+        <div class="card mb-3">
+            <div class="card-header">
+                Group Name: @ProjectData.ProjectName
             </div>
-        }
-    </div>
+            <div class="card-body">
+                <h5 class="">Members:</h5>
+                <ul class="list-group">
+                    @if (Members != null){
+                    @foreach (var member in Members)
+                    {
+                        <li class="list-group-item">
+                            <div class="text-xs text-muted">@member.Email </div>
+                            @member.StudentID | @member.FirstName @member.LastName | @member.Nickname
+                        </li>
+                    }
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <h4 class="mb-4 fw-bold">Project Detail</h4>
+        <div class="card mb-3">
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <p class="fw-bold">Project Title</p>
+                        <p>@ProjectData.ProjectName</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>ประธาน : @ProjectData.Chairman</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>กรรมการ 1 : @ProjectData.Director1</p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>กรรมการ 2 : @ProjectData.Director2</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h4 class="mb-4 fw-bold">Upload Process Stages</h4>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach (var stage in UploadStages)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-row gap-2 align-items-center mb-4">
+                                <div class="h5">@stage.Title</div>
+                                <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
+                            </div>
+                            <form>
+                                <div class="mb-3">
+                                    <input class="form-control" type="file" id="@($"upload_{stage.Id}")">
+                                </div>
+                                <button type="button" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 </div>
 
 @code {
-    // Simulated data for upload stages
     private List<UploadStage> UploadStages = new List<UploadStage>
 {
 new UploadStage { Id = 1, Title = "1 ส่งบทนำ", Status = "New" },
 new UploadStage { Id = 2, Title = "ส่งส่วนที่1", Status = "Pending" },
-new UploadStage { Id = 3, Title = "พบกรรมการ", Status = "Approved" },
-new UploadStage { Id = 4, Title = "ตรวจ format", Status = "New" },
-new UploadStage { Id = 5, Title = "ให้หัวข้อโครงงาน", Status = "Pending" },
-new UploadStage { Id = 6, Title = "แก้ไขตามที่กรรมการบอก", Status = "New" },
-new UploadStage { Id = 7, Title = "ตรวจ format 100%", Status = "Pending" },
-new UploadStage { Id = 8, Title = "ส่งแฟลชไดร์ฟ", Status = "New" },
-new UploadStage { Id = 9, Title = "ส่งบทย่อ", Status = "Pending" },
-new UploadStage { Id = 10, Title = "ส่งเอกสารสมบูรณ์", Status = "New" },
-new UploadStage { Id = 11, Title = "นำเสนอ", Status = "New" },
+new UploadStage { Id = 3, Title = "ส่งส่วนที่2", Status = "Approved" },
+new UploadStage { Id = 4, Title = "ส่งส่วนที่3", Status = "New" },
 
 };
 
@@ -129,8 +121,22 @@ new UploadStage { Id = 11, Title = "นำเสนอ", Status = "New" },
         public string Status { get; set; }
     }
 
-    protected override async Task OnInitializedAsync()
-    {
+}
 
-    }
+
+
+@code {
+    private Project ProjectData;
+    private IEnumerable<ApplicationUser> Members;
+
+protected override async Task OnInitializedAsync()
+{
+    var user = await UserManager.GetUserAsync(SignInManager.Context.User);
+    ProjectData = await UserService.GetUserProjectAsync(user.Id);
+    Members = await UserService.GetProjectMembersAsync(ProjectData.ProjectId);
+
+
+    Console.WriteLine(user.Id);
+}
+
 }

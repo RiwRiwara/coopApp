@@ -1,44 +1,118 @@
 @page "/students"
+@rendermode InteractiveServer
 
 @using CoopWeb.Data
 @using CoopWeb.Services
-@using CoopWeb.Utils
 @using Microsoft.AspNetCore.Identity
 @inject IUserService UserService
+@inject ProjectService ProjectService
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 @inject NavigationManager NavigationManager
+@using CoopWeb.Utils
 
+@inject IJSRuntime JSRuntime
 
 <h3>All Users</h3>
+<RadzenButton Click="@CreateNewUser" Text="Create New User" ButtonStyle="ButtonStyle.Success"></RadzenButton>
+
+<div class="container p-2 shadow-sm rounded my-4">
+    @if (showForm)
+    {
+        @if(isEditMode) {
+            <h2>Update student</h2>
+        }else{
+            <h2>Create new student</h2>
+        }
+        <EditForm Model="@currentUser" OnValidSubmit="HandleValidSubmit" class="d-flex flex-column gap-2">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label>Student ID</label>
+                <InputText class="form-control" @bind-Value="currentUser.StudentID" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <InputText class="form-control" @bind-Value="currentUser.Email" />
+            </div>
+            <div class="form-group">
+                <label>First Name</label>
+                <InputText class="form-control" @bind-Value="currentUser.FirstName" />
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <InputText class="form-control" @bind-Value="currentUser.LastName" />
+            </div>
+            <div class="form-group">
+                <label>Nickname</label>
+                <InputText class="form-control" @bind-Value="currentUser.Nickname" />
+            </div>
+
+<div class="form-group">
+    <label>Project ID</label>
+    <InputSelect class="form-control" @bind-Value="currentUser.ProjectId">
+        <option value="">Select Project</option>
+        @foreach (var project in projects)
+        {
+            <option value="@project.ProjectId">[@project.ProjectId] @project.ProjectName</option>
+        }
+    </InputSelect>
+</div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+        </EditForm>
+    }
+</div>
+
 
 @if (students == null)
 {
-    <p><em>Loading...</em></p>
+        <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Full Name</th>
-            </tr>
-        </thead>
-        <tbody>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Email</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Nickname</th>
+                    <th>Project Id</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach (var user in students)
             {
-                <tr>
-                    <td>@user.Email</td>
-                    <td>@user.FullName</td>
-                </tr>
+                        <tr>
+                            <td>@user.StudentID</td>
+                            <td>@user.Email</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.Nickname</td>
+                            <td>@user.ProjectId</td>
+                            <td>
+                                <button class="btn btn-primary" @onclick="() => EditUser(user)">Edit</button>
+                                <button class="btn btn-danger" @onclick="() => ConfirmDeleteUser(user.Id)">Delete</button>
+                            </td>
+                        </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 }
+
 
 @code {
     private IEnumerable<ApplicationUser> students;
+    private ApplicationUser currentUser = new ApplicationUser();
+    private bool showForm = false;
+    private bool isEditMode = false;
+
+    private IEnumerable<Project> projects;
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,7 +125,61 @@ else
         }
         else
         {
-            students = await UserService.GetAllUsersAsync();
+            students = await UserService.GetAllStudentsAsync();
+            projects = await ProjectService.GetAllProjectsAsync();
+        }
+    }
+
+    private async Task ReloadUsers()
+    {
+        students = await UserService.GetAllStudentsAsync();
+    }
+
+    private void CreateNewUser()
+    {
+        currentUser = new ApplicationUser();
+        showForm = true;
+        isEditMode = false;
+    }
+
+    private void EditUser(ApplicationUser user)
+    {
+        currentUser = user;
+        showForm = true;
+        isEditMode = true;
+    }
+
+    private async Task DeleteUser(string userId)
+    {
+        await UserService.DeleteStudentAsync(userId);
+        await ReloadUsers();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (isEditMode)
+        {
+            await UserService.UpdateStudentAsync(currentUser);
+        }
+        else
+        {
+            await UserService.CreateStudentAsync(currentUser);
+        }
+        showForm = false;
+        await ReloadUsers();
+    }
+
+    private void Cancel()
+    {
+        showForm = false;
+    }
+
+        private async Task ConfirmDeleteUser(string userId)
+    {
+        bool isConfirmed = await JSRuntime.InvokeAsync<bool>("showConfirmDialog", "Are you sure you want to delete this user?");
+        if (isConfirmed)
+        {
+            await DeleteUser(userId);
         }
     }
 }

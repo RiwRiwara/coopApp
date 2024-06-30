@@ -11,6 +11,16 @@ namespace CoopWeb.Services
 
 
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
+        Task<IEnumerable<ApplicationUser>> GetAllStudentsAsync();
+
+       Task<ApplicationUser> CreateStudentAsync(ApplicationUser user);
+
+        Task<ApplicationUser> UpdateStudentAsync(ApplicationUser user);
+
+        Task<ApplicationUser> DeleteStudentAsync(string userId);
+
+        Task<Project> GetUserProjectAsync(string userId);
+        Task<IEnumerable<ApplicationUser>> GetProjectMembersAsync(int projectId);
 
 
     }
