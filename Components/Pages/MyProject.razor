@@ -7,7 +7,7 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 @inject NavigationManager NavigationManager
-@inject SignInManager<ApplicationUser> SignInManager
+@inject ProjectService ProjectService
 
 <PageTitle>My Project</PageTitle>
 
@@ -28,14 +28,15 @@
             <div class="card-body">
                 <h5 class="">Members:</h5>
                 <ul class="list-group">
-                    @if (Members != null){
-                    @foreach (var member in Members)
+                    @if (Members != null)
                     {
-                        <li class="list-group-item">
-                            <div class="text-xs text-muted">@member.Email </div>
-                            @member.StudentID | @member.FirstName @member.LastName | @member.Nickname
-                        </li>
-                    }
+                        @foreach (var member in Members)
+                        {
+                            <li class="list-group-item">
+                                <div class="text-xs text-muted">@member.Email </div>
+                                @member.StudentID | @member.FirstName @member.LastName | @member.Nickname
+                            </li>
+                        }
                     }
                 </ul>
             </div>
@@ -64,13 +65,13 @@
 
         <h4 class="mb-4 fw-bold">Upload Process Stages</h4>
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            @foreach (var stage in UploadStages)
+            @foreach (var stage in ProjectStages)
             {
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-row gap-2 align-items-center mb-4">
-                                <div class="h5">@stage.Title</div>
+                                <div class="h5">@stage.StageName</div>
                                 <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
                             </div>
                             <form>
@@ -88,29 +89,25 @@
 </div>
 
 @code {
+    private List<Stage> ProjectStages = new List<Stage>{};
+
     private List<UploadStage> UploadStages = new List<UploadStage>
-{
-new UploadStage { Id = 1, Title = "1 ส่งบทนำ", Status = "New" },
-new UploadStage { Id = 2, Title = "ส่งส่วนที่1", Status = "Pending" },
-new UploadStage { Id = 3, Title = "ส่งส่วนที่2", Status = "Approved" },
-new UploadStage { Id = 4, Title = "ส่งส่วนที่3", Status = "New" },
+    {
+        new UploadStage { Id = 1, Title = "1 ส่งบทนำ", Status = "New" },
+        new UploadStage { Id = 2, Title = "ส่งส่วนที่1", Status = "Pending" },
+        new UploadStage { Id = 3, Title = "ส่งส่วนที่2", Status = "Approved" },
+        new UploadStage { Id = 4, Title = "ส่งส่วนที่3", Status = "New" },
+    };
 
-};
-
-    // Method to determine badge color based on status
     private string BadgeColor(string status)
     {
-        switch (status)
+        return status switch
         {
-            case "New":
-                return "bg-primary";
-            case "Pending":
-                return "bg-warning";
-            case "Approved":
-                return "bg-success";
-            default:
-                return "bg-secondary";
-        }
+            "New" => "bg-primary",
+            "Pending" => "bg-warning",
+            "Approved" => "bg-success",
+            _ => "bg-secondary"
+        };
     }
 
     // Model for upload stage
@@ -121,22 +118,21 @@ new UploadStage { Id = 4, Title = "ส่งส่วนที่3", Status = "N
         public string Status { get; set; }
     }
 
-}
-
-
-
-@code {
     private Project ProjectData;
     private IEnumerable<ApplicationUser> Members;
 
-protected override async Task OnInitializedAsync()
-{
-    var user = await UserManager.GetUserAsync(SignInManager.Context.User);
-    ProjectData = await UserService.GetUserProjectAsync(user.Id);
-    Members = await UserService.GetProjectMembersAsync(ProjectData.ProjectId);
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await UserManager.GetUserAsync(SignInManager.Context.User);
+        ProjectData = await UserService.GetUserProjectAsync(user.Id);
 
+        if (ProjectData != null)
+        {
+            Members = await UserService.GetProjectMembersAsync(ProjectData.ProjectId);
+            ProjectStages = (await ProjectService.GetStagesByProjectIdAsync(ProjectData.ProjectId)).ToList();
 
-    Console.WriteLine(user.Id);
-}
+        }
+    }
 
+    
 }

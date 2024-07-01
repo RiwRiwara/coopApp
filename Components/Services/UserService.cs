@@ -70,6 +70,10 @@ public async Task<Project> GetUserProjectAsync(string userId)
     }
 
     var project = await _context.Projects.FindAsync(user.ProjectId);
+    if (project == null)
+    {
+        return null;
+    }
     Console.WriteLine($"Project for user {userId}: {project.ProjectName}");
     return project;
 }

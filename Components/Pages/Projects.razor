@@ -96,7 +96,7 @@
                                             <p>ประธาน : @project.Chairman</p>
                                         </li>
                                         <li class="list-group-item">
-                                            <p>กรรมการ 1 : @project.Director2</p>
+                                            <p>กรรมการ 1 : @project.Director1</p>
                                         </li>
                                         <li class="list-group-item">
                                             <p>กรรมการ 2 : @project.Director2</p>
@@ -104,17 +104,24 @@
                                     </ul>
                                 </RadzenAccordionItem>
                                 <RadzenAccordionItem Text="การส่งงงาน" Icon="account_box">
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <p>รอบที่ 1 : ...</p>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p>รอบที่ 2 : ...</p>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p>รอบที่ 3 : ...</p>
-                                        </li>
-                                    </ul>
+                                    @if (!ProjectStages.ContainsKey(project.ProjectId))
+                                    {
+                                        <p><em>Loading stages...</em></p>
+                                    }
+                                    else
+                                    {
+                                        <ul class="list-group">
+                                            @foreach (var stage in ProjectStages[project.ProjectId])
+                                            {
+                                                <li class="list-group-item">
+                                                    <p>
+                                                    รอบที่ @stage.StageNumber : @stage.StageName - สถานะ: @stage.Status - กำหนดเส้นตาย: @stage.Deadline?.ToString("yyyy-MM-dd")
+                                                    </p>
+                                                    <a>@stage.FileName</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
                                 </RadzenAccordionItem>
                             </Items>
                         </RadzenAccordion>
@@ -134,6 +141,7 @@
 @code {
     private List<Project> AllProjects;
     private Dictionary<int, List<ApplicationUser>> ProjectMembers = new Dictionary<int, List<ApplicationUser>>();
+    private Dictionary<int, List<Stage>> ProjectStages = new Dictionary<int, List<Stage>>();
     private Project currentProject = new Project();
     private bool showForm = false;
     private bool isEditMode = false;
@@ -149,16 +157,15 @@
         }
         else
         {
-        await ReloadProjects();
-
+            await ReloadProjects();
         }
-
     }
 
     private async Task ReloadProjects()
     {
         AllProjects = (await ProjectService.GetAllProjectsAsync()).ToList();
         await LoadProjectMembers();
+        await LoadProjectStages();
     }
 
     private async Task LoadProjectMembers()
@@ -166,6 +173,14 @@
         foreach (var project in AllProjects)
         {
             ProjectMembers[project.ProjectId] = (await ProjectService.GetProjectMembersAsync(project.ProjectId)).ToList();
+        }
+    }
+
+    private async Task LoadProjectStages()
+    {
+        foreach (var project in AllProjects)
+        {
+            ProjectStages[project.ProjectId] = (await ProjectService.GetStagesByProjectIdAsync(project.ProjectId)).ToList();
         }
     }
 

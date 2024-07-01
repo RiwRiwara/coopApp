@@ -83,11 +83,10 @@ namespace CoopWeb.Data
             users.AddRange(students);
 
             builder.Entity<ApplicationUser>().HasData(users);
+            var projectSeed = new ProjectSeed();
 
-            var projects = new ProjectSeed().GetProjects();
-            builder.Entity<Project>().HasData(projects);
-
-
+            builder.Entity<Project>().HasData(projectSeed.GetProjects());
+            builder.Entity<Stage>().HasData(projectSeed.GetStages());
 
 
         }

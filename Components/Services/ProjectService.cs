@@ -29,6 +29,54 @@ namespace CoopWeb.Services
         {
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
+
+            var defaultStages = new List<Stage>
+            {
+                new Stage
+                {
+                    StageNumber = 1,
+                    StageName = "Stage 1",
+                    Status = "Not Started",
+                    Deadline = DateTime.Now.AddMonths(1),
+                    Description = "Description for Stage 1",
+                    ProjectId = project.ProjectId,
+                    FileName = "temp.pdf"
+                },
+                new Stage
+                {
+                    StageNumber = 2,
+                    StageName = "Stage 2",
+                    Status = "Not Started",
+                    Deadline = DateTime.Now.AddMonths(2),
+                    Description = "Description for Stage 2",
+                    ProjectId = project.ProjectId,
+                    FileName = "temp.pdf"
+                },
+                new Stage
+                {
+                    StageNumber = 3,
+                    StageName = "Stage 3",
+                    Status = "Not Started",
+                    Deadline = DateTime.Now.AddMonths(3),
+                    Description = "Description for Stage 3",
+                    ProjectId = project.ProjectId,
+                    FileName = "temp.pdf"
+                },
+                new Stage
+                {
+                    StageNumber = 4,
+                    StageName = "Stage 4",
+                    Status = "Not Started",
+                    Deadline = DateTime.Now.AddMonths(4),
+                    Description = "Description for Stage 4",
+                    ProjectId = project.ProjectId,
+                    FileName = "temp.pdf"
+                }
+            };
+
+            _context.Stages.AddRange(defaultStages);
+            await _context.SaveChangesAsync();
+
             return project;
         }
 
@@ -64,6 +112,30 @@ namespace CoopWeb.Services
                 ProjectName = p.ProjectName
             }).ToListAsync();
         }
+
+        public async Task<IEnumerable<Stage>> GetStagesByProjectIdAsync(int projectId)
+        {
+            return await _context.Stages.Where(s => s.ProjectId == projectId).ToListAsync();
+        }
+
+        public async Task<List<Project>> GetProjectsWithMembersAsync()
+        {
+            return await _context.Projects
+                .Include(p => p.GetMembers(_context))
+                .ToListAsync();
+        }
+
+        public async Task UpdateStageStatusAsync(int stageId, string newStatus)
+{
+    var stage = await _context.Stages.FindAsync(stageId);
+    if (stage != null)
+    {
+        stage.Status = newStatus;
+        await _context.SaveChangesAsync();
+    }
+}
+
+
 
     }
 }

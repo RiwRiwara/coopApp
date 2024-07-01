@@ -1,74 +1,129 @@
 ﻿@page "/"
-
+@using CoopWeb.Data
+@using CoopWeb.Services
+@using CoopWeb.Utils
+@using Microsoft.AspNetCore.Identity
+@inject IUserService UserService
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+@inject ProjectService ProjectService
 <PageTitle>Student</PageTitle>
 
-<h1>
-    รายชื่อนักศึกษาฝึกสหกิจศึกษา ประจำปีการศึกษา 2566
-</h1>
+<h1>รายชื่อนักศึกษาฝึกสหกิจศึกษา ประจำปีการศึกษา 2566</h1>
 
-
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th rowspan="2">No.</th>
-                    <th rowspan="2">Pro. Std.</th>
-                    <th rowspan="2">รหัส นศ.</th>
-                    <th rowspan="2">ชื่อ-สกุล</th>
-                    <th rowspan="2">ชื่อเล่น</th>
-                    <th rowspan="2">ชื่อโครงการ (ไทย)</th>
-                    <th colspan="3">ที่ปรึกษาโครงการคอมพิวเตอร์ศึกษา</th>
-                    <th rowspan="2">สถานที่ฝึกสหกิจศึกษา</th>
-                    <th colspan="12">หลังฝึก</th>
-                </tr>
-                <tr>
-                    <th>ประธาน</th>
-                    <th>กรรมการ</th>
-                    <th>กรรมการ</th>
-                    <th>ส่งบทนำ</th>
-                    <th>ส่งส่วนที่1</th>
-                    <th>พบกรรมการ</th>
-                    <th>ตรวจ format</th>
-                    <th>ให้หัวข้อโครงงาน</th>
-                    <th>แก้ไขตามที่กรรมการบอก</th>
-                    <th>ตรวจ format 100%</th>
-                    <th>ส่งแฟลชไดร์ฟ</th>
-                    <th>ส่งบทย่อ</th>
-                    <th>ส่ง full paper</th>
-                    <th>นำเสนอ</th>
-                    <th>นำเสนอในห้องเรียน</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @for (int i = 0; i < 10; i++)
-                {
+@if (AllProjects == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
                     <tr>
-                        <td>1</td>
-                        <td>630410138</td>
-                        <td>นายวัชรชัย แสงหิรัญ</td>
-                        <td>กาย</td>
-                        <td>ระบบแนะนำกิจกรรมการใช้พื้นที่</td>
-                        <td>อ.ดร.กาญจนา กองมี</td>
-                        <td>อ.ธันยา พรหมมาศ</td>
-                        <td>อ.ดร.กาญจนา กองมี</td>
-                        <td>บ.ไอเน็ตซอฟท์ จำกัด</td>
-                        <td>15 พ.ย.66</td>
-                        <td>15 ธ.ค.66</td>
-                        <td>5 ม.ค.67</td>
-                        <td>15 ม.ค.67</td>
-                        <td>31 ม.ค.67</td>
-                        <td>5 ก.พ.67</td>
-                        <td>20 ก.พ.67</td>
-                        <td>25 ก.พ.67</td>
-                        <td>CO1,12,14</td>
-                        <td>29 ก.พ.67</td>
-                        <td>นำเสนอ</td>
-                        <td>1 เม.ย.67</td>
+                        <th rowspan="2" class="text-center text-nowrap">Project ID.</th>
+                        <th rowspan="2" class="text-center text-nowrap">รหัส นศ.</th>
+                        <th rowspan="2" class="text-center text-nowrap">ชื่อ-สกุล</th>
+                        <th rowspan="2" class="text-center text-nowrap">ชื่อเล่น</th>
+                        <th rowspan="2" class="text-center text-nowrap">ชื่อโครงการ (ไทย)</th>
+                        <th colspan="3" class="text-center text-nowrap">ที่ปรึกษาโครงการคอมพิวเตอร์ศึกษา</th>
+                        <th rowspan="2" class="text-center text-nowrap">สถานที่ฝึกสหกิจศึกษา</th>
+                        <th colspan="12" class="text-center">หลังฝึก</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    <tr>
+                        <th class="text-center text-nowrap">ประธาน</th>
+                        <th class="text-center text-nowrap">กรรมการ</th>
+                        <th class="text-center text-nowrap">กรรมการ</th>
+                        <th class="text-center text-nowrap">ส่งส่วนที่ 1</th>
+                        <th class="text-center text-nowrap">ส่งส่วนที่ 2</th>
+                        <th class="text-center text-nowrap">ส่งส่วนที่ 3</th>
+                        <th class="text-center text-nowrap">ส่งส่วนที่ 4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var project in AllProjects)
+                    {
+
+                        @if (!ProjectMembers.ContainsKey(project.ProjectId))
+                        {
+                            <p><em>Loading members...</em></p>
+                        }
+                        else
+                        {
+                            @foreach (var member in ProjectMembers[project.ProjectId])
+                            {
+                                <tr>
+                                    <td>@member.ProjectId</td>
+                                    <td>@member.StudentID</td>
+                                    <td class="text-nowrap">@member.FirstName @member.LastName</td>
+                                    <td>@member.Nickname</td>
+                                    <td class="text-nowrap">@project.ProjectName</td>
+                                    <td>@project.Chairman</td>
+                                    <td>@project.Director1</td>
+                                    <td>@project.Director2</td>
+                                    <td>@project.WorkPlace</td>
+                                    @if (!ProjectStages.ContainsKey(project.ProjectId))
+                                    {
+                                        <p><em>Loading stages...</em></p>
+                                    }
+                                    else
+                                    {
+                                        @foreach (var stage in ProjectStages[project.ProjectId])
+                                        {
+                                            <td>
+                                                รอบที่ @stage.StageNumber : @stage.StageName - สถานะ: @stage.Status - กำหนดเส้นตาย:
+                                                @stage.Deadline?.ToString("yyyy-MM-dd")
+
+                                            </td>
+                                        }
+                                    }
+                                </tr>
+                            }
+
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+}
+
+@code {
+    private List<Project> AllProjects;
+    private Dictionary<int, List<ApplicationUser>> ProjectMembers = new Dictionary<int, List<ApplicationUser>>();
+    private Dictionary<int, List<Stage>> ProjectStages = new Dictionary<int, List<Stage>>();
+    private Project currentProject = new Project();
+    private bool showForm = false;
+    private bool isEditMode = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ReloadProjects();
+    }
+
+    private async Task ReloadProjects()
+    {
+        AllProjects = (await ProjectService.GetAllProjectsAsync()).ToList();
+        await LoadProjectMembers();
+        await LoadProjectStages();
+    }
+
+    private async Task LoadProjectMembers()
+    {
+        foreach (var project in AllProjects)
+        {
+            ProjectMembers[project.ProjectId] = (await ProjectService.GetProjectMembersAsync(project.ProjectId)).ToList();
+        }
+    }
+
+    private async Task LoadProjectStages()
+    {
+        foreach (var project in AllProjects)
+        {
+            ProjectStages[project.ProjectId] = (await ProjectService.GetStagesByProjectIdAsync(project.ProjectId)).ToList();
+        }
+    }
+}
