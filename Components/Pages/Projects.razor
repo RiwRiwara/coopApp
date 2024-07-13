@@ -14,14 +14,18 @@
 <PageTitle>Review Projects</PageTitle>
 
 <div class="container my-5">
-    <h4 class="mb-4 fw-bold">Projects for Review</h4>
+    <h4 class="mb-4 fw-bold">
+        โครงงานทั้งหมด
+    </h4>
     @if (AllProjects == null)
     {
         <p><em>Loading...</em></p>
     }
     else if (AllProjects.Count == 0)
     {
-        <p><em>No projects available.</em></p>
+        <p><em>
+            ไม่มีโครงงานในระบบ
+        </em></p>
     }
     else
     {
@@ -30,27 +34,37 @@
             @if (showForm)
             {
                 @if(isEditMode) {
-                    <h2>Update Project</h2>
+                    <h2>
+                        แก้ไขโครงงาน [@currentProject.ProjectId] - @currentProject.ProjectName
+                    </h2>
                 }else{
-                    <h2>Create new Project</h2>
+                    <h2>
+                        สร้างโครงงาน
+                    </h2>
                 }
                 <EditForm Model="@currentProject" OnValidSubmit="HandleValidSubmit" class="d-flex flex-column gap-2">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
                     <div class="form-group">
-                        <label>Project Name</label>
+                        <label>ชื่อ</label>
                         <InputText class="form-control" @bind-Value="currentProject.ProjectName" />
                     </div>
                     <div class="form-group">
-                        <label>Chairman</label>
+                        <label>
+                            ประธาน
+                        </label>
                         <InputText class="form-control" @bind-Value="currentProject.Chairman" />
                     </div>
                     <div class="form-group">
-                        <label>Advisor</label>
+                        <label>
+                            กรรมการ
+                        </label>
                         <InputText class="form-control" @bind-Value="currentProject.Director1" />
                     </div>
                     <div class="form-group">
-                        <label>Advisor</label>
+                        <label>
+                            กรรมการ
+                        </label>
                         <InputText class="form-control" @bind-Value="currentProject.Director2" />
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -76,7 +90,9 @@
                                 <RadzenAccordionItem Text="สมาชิก" Icon="account_box">
                                     @if (!ProjectMembers.ContainsKey(project.ProjectId))
                                     {
-                                        <p><em>Loading members...</em></p>
+                                        <p><em>
+                                            โหลดข้อมูลสมาชิก...
+                                        </em></p>
                                     }
                                     else
                                     {
@@ -115,10 +131,30 @@
                                             {
                                                 <li class="list-group-item">
                                                     <p>
-                                                    รอบที่ @stage.StageNumber : @stage.StageName - สถานะ: @stage.Status - กำหนดเส้นตาย: @stage.Deadline?.ToString("yyyy-MM-dd")
+                                                        รอบที่ @stage.StageNumber : @stage.StageName - สถานะ: @stage.Status - กำหนดเส้นตาย: @stage.Deadline?.ToString("yyyy-MM-dd")
                                                     </p>
-                                                    <a>@stage.FileName</a>
+
+
+                    <EditForm Model="@stage" OnValidSubmit="@(async () => await OnUpdateStageDeadlineAsync(stage, stage.Deadline))">
+                        <div class="input-group mb-3">
+                            <input id="deadlinePicker" type="date" class="form-control" @bind="@stage.Deadline" />
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </EditForm>
+
+
+                                                    <p>
+                                                        <a>@stage.FilePath</a>
+                                                    </p>
+
+                                                <div class="d-flex flex-row gap-2 p-2 ">
+                                                    <button type="button" class="btn btn-success" @onclick="(e => OnApproved(stage))">Approved</button>
+                                                    <button type="button" class="btn btn-danger" @onclick="(e => OnRejected(stage))">Rejected</button>
+                                                </div>
+
                                                 </li>
+
+
                                             }
                                         </ul>
                                     }
@@ -130,7 +166,7 @@
 
                 <div class="d-flex justify-content-end gap-2">
                     <button class="btn btn-primary" @onclick="() => EditProject(project)">
-                        Edit Project
+                        แก้ไข
                     </button>
                 </div>
             </div>
@@ -226,4 +262,20 @@
     void Change(object value, string name, string action)
     {
     }
+
+
+    private async Task OnApproved(Stage stage)
+{
+        await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FilePath, "Approved");
+}
+
+    private async Task OnRejected(Stage stage)
+{
+        await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FilePath, "Rejected");
+}
+    private async Task OnUpdateStageDeadlineAsync(Stage stage, DateTime deadline)
+{
+        await ProjectService.UpdateStageDeadlineAsync(stage.Id, deadline);
+}
+
 }

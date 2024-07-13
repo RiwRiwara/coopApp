@@ -8,6 +8,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject NavigationManager NavigationManager
 @inject ProjectService ProjectService
+@rendermode InteractiveServer
 
 <PageTitle>My Project</PageTitle>
 
@@ -20,13 +21,15 @@
     }
     else
     {
-        <h4 class="mb-4 fw-bold">My Group</h4>
+        <h4 class="mb-4 fw-bold">
+            กลุ่มโครงงาน
+        </h4>
         <div class="card mb-3">
             <div class="card-header">
-                Group Name: @ProjectData.ProjectName
+                ชื่อกลุ่ม :  @ProjectData.ProjectName
             </div>
             <div class="card-body">
-                <h5 class="">Members:</h5>
+                <h5 class="">สมาชิก:</h5>
                 <ul class="list-group">
                     @if (Members != null)
                     {
@@ -42,12 +45,16 @@
             </div>
         </div>
 
-        <h4 class="mb-4 fw-bold">Project Detail</h4>
+        <h4 class="mb-4 fw-bold">
+            รายละเอียดโครงงาน
+        </h4>
         <div class="card mb-3">
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <p class="fw-bold">Project Title</p>
+                        <p class="fw-bold">
+                            โครงงาน : @ProjectData.ProjectName
+                        </p>
                         <p>@ProjectData.ProjectName</p>
                     </li>
                     <li class="list-group-item">
@@ -63,27 +70,32 @@
             </div>
         </div>
 
-        <h4 class="mb-4 fw-bold">Upload Process Stages</h4>
+        <h4 class="mb-4 fw-bold">
+            สถานะของโครงงาน
+        </h4>
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            @foreach (var stage in ProjectStages)
-            {
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-row gap-2 align-items-center mb-4">
-                                <div class="h5">@stage.StageName</div>
-                                <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
-                            </div>
-                            <form>
-                                <div class="mb-3">
-                                    <input class="form-control" type="file" id="@($"upload_{stage.Id}")">
-                                </div>
-                                <button type="button" class="btn btn-primary">Upload</button>
-                            </form>
-                        </div>
-                    </div>
+@foreach (var stage in ProjectStages)
+{
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row gap-2 align-items-center mb-4">
+                    <div class="h5">@stage.StageName</div>
+                    <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
                 </div>
-            }
+                <form>
+                    <div class="mb-3">
+                        <InputFile OnChange="(e => HandleFileSelected(e, stage.Id))" />
+                    </div>
+                    <button type="button" class="btn btn-primary" @onclick="(e => UploadFile(stage))">Upload</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+
         </div>
     }
 </div>
@@ -91,13 +103,7 @@
 @code {
     private List<Stage> ProjectStages = new List<Stage>{};
 
-    private List<UploadStage> UploadStages = new List<UploadStage>
-    {
-        new UploadStage { Id = 1, Title = "1 ส่งบทนำ", Status = "New" },
-        new UploadStage { Id = 2, Title = "ส่งส่วนที่1", Status = "Pending" },
-        new UploadStage { Id = 3, Title = "ส่งส่วนที่2", Status = "Approved" },
-        new UploadStage { Id = 4, Title = "ส่งส่วนที่3", Status = "New" },
-    };
+
 
     private string BadgeColor(string status)
     {
@@ -106,16 +112,9 @@
             "New" => "bg-primary",
             "Pending" => "bg-warning",
             "Approved" => "bg-success",
+            "Rejected" => "bg-danger",
             _ => "bg-secondary"
         };
-    }
-
-    // Model for upload stage
-    public class UploadStage
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Status { get; set; }
     }
 
     private Project ProjectData;
@@ -133,6 +132,36 @@
 
         }
     }
+
+
+private async Task HandleFileSelected(InputFileChangeEventArgs e, int stageId)
+{
+    var stage = ProjectStages.FirstOrDefault(s => s.Id == stageId);
+    if (stage != null)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            // Example path generation
+            var fileName = $"uploads/{stage.StageName}/{file.Name}";
+            Console.WriteLine($"File path: {fileName}");
+
+            stage.FilePath = fileName;
+        }
+    }
+}
+
+private async Task UploadFile(Stage stage)
+{
+    Console.WriteLine("Upload file");
+    if (!string.IsNullOrEmpty(stage.FilePath))
+    {
+        // Save file path to database
+        await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FilePath, "Pending");
+    }
+}
+
+
 
     
 }

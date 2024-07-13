@@ -72,9 +72,17 @@ else
                                     {
                                         @foreach (var stage in ProjectStages[project.ProjectId])
                                         {
-                                            <td>
-                                                รอบที่ @stage.StageNumber : @stage.StageName - สถานะ: @stage.Status - กำหนดเส้นตาย:
-                                                @stage.Deadline?.ToString("yyyy-MM-dd")
+                                            <td >
+                                        <div>
+                                            <p>
+                                                รอบที่ @stage.StageNumber : @stage.StageName
+                                            </p>
+                                            <p>
+                                                กำหนดเส้นตาย: @stage.Deadline?.ToString("yyyy-MM-dd")
+                                            </p>
+                                            <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
+
+                                        </div>
 
                                             </td>
                                         }
@@ -125,5 +133,17 @@ else
         {
             ProjectStages[project.ProjectId] = (await ProjectService.GetStagesByProjectIdAsync(project.ProjectId)).ToList();
         }
+    }
+
+        private string BadgeColor(string status)
+    {
+        return status switch
+        {
+            "New" => "bg-primary",
+            "Pending" => "bg-warning",
+            "Approved" => "bg-success",
+            "Rejected" => "bg-danger",
+            _ => "bg-secondary"
+        };
     }
 }

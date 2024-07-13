@@ -136,6 +136,31 @@ namespace CoopWeb.Services
 }
 
 
+public async Task UpdateStageFilePathAsync(int stageId, string filePath, string status)
+{
+    var stage = await _context.Stages.FindAsync(stageId);
+    if (stage != null)
+    {
+        stage.FilePath = filePath;
+        stage.Status = status;
+        await _context.SaveChangesAsync();
+    }
+}
+
+
+
+public async Task UpdateStageDeadlineAsync(int stageId, DateTime deadline)
+{
+    var stage = await _context.Stages.FindAsync(stageId);
+    if (stage != null)
+    {
+        stage.Deadline = deadline;
+        await _context.SaveChangesAsync();
+    }
+}
+
+
+
 
     }
 }

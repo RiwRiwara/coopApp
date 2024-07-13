@@ -20,12 +20,14 @@ namespace CoopWeb.Data
                 {
                     ProjectId = 1,
                     ProjectName = "Project 1",
+                    WorkPlace = "SCG Chemicals Co., Ltd.",
                 },
 
                 new Project
                 {
                     ProjectId = 2,
                     ProjectName = "Project 2",
+                    WorkPlace = "Toyota Motor Thailand",
                 },
             };
 
@@ -46,7 +48,8 @@ namespace CoopWeb.Data
                     FileName = "File1.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(1),
-                    Description = "Description for Stage 1"
+                    Description = "Description for Stage 1",
+                    FilePath = "File1.pdf"
                 },
                 new Stage
                 {
@@ -58,7 +61,8 @@ namespace CoopWeb.Data
                     FileName = "File2.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(2),
-                    Description = "Description for Stage 2"
+                    Description = "Description for Stage 2",
+                    FilePath = "File2.pdf"
                 },
                 new Stage
                 {
@@ -70,7 +74,8 @@ namespace CoopWeb.Data
                     FileName = "File3.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(3),
-                    Description = "Description for Stage 3"
+                    Description = "Description for Stage 3",
+                    FilePath = "File3.pdf"
                 },
                 new Stage
                 {
@@ -82,7 +87,8 @@ namespace CoopWeb.Data
                     FileName = "File4.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(4),
-                    Description = "Description for Stage 4"
+                    Description = "Description for Stage 4",
+                    FilePath = "File4.pdf"
                 },
                 new Stage
                 {
@@ -94,7 +100,8 @@ namespace CoopWeb.Data
                     FileName = "File5.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(1),
-                    Description = "Description for Stage 1"
+                    Description = "Description for Stage 1",
+                    FilePath = "File5.pdf"
                 },
                 new Stage
                 {
@@ -106,7 +113,8 @@ namespace CoopWeb.Data
                     FileName = "File6.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(2),
-                    Description = "Description for Stage 2"
+                    Description = "Description for Stage 2",
+                    FilePath = "File6.pdf"
                 },
                 new Stage
                 {
@@ -118,7 +126,8 @@ namespace CoopWeb.Data
                     FileName = "File7.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(3),
-                    Description = "Description for Stage 3"
+                    Description = "Description for Stage 3",
+                    FilePath = "File7.pdf"
                 },
                 new Stage
                 {
@@ -130,7 +139,8 @@ namespace CoopWeb.Data
                     FileName = "File8.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(4),
-                    Description = "Description for Stage 4"
+                    Description = "Description for Stage 4",
+                    FilePath = "File8.pdf"
                 }
             };
 
