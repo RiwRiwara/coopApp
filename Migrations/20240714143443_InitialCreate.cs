@@ -70,16 +70,16 @@ namespace CoopWeb.Migrations
                     StageId = table.Column<int>(type: "int", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
                     StageNumber = table.Column<int>(type: "int", nullable: false),
-                    StageName = table.Column<string>(type: "longtext", nullable: false)
+                    StageName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    FileName = table.Column<string>(type: "longtext", nullable: false)
+                    FileName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Status = table.Column<string>(type: "longtext", nullable: false)
+                    Status = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Deadline = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Description = table.Column<string>(type: "longtext", nullable: false)
+                    Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    FilePath = table.Column<string>(type: "longtext", nullable: false)
+                    FilePath = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -285,14 +285,15 @@ namespace CoopWeb.Migrations
                 columns: new[] { "Id", "Deadline", "Description", "FileName", "FilePath", "ProjectId", "StageId", "StageName", "StageNumber", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 8, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(39), "Description for Stage 1", "File1.pdf", "File1.pdf", 1, 1, "Stage 1", 1, "Not Started" },
-                    { 2, new DateTime(2024, 9, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(77), "Description for Stage 2", "File2.pdf", "File2.pdf", 1, 2, "Stage 2", 2, "Not Started" },
-                    { 3, new DateTime(2024, 10, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(82), "Description for Stage 3", "File3.pdf", "File3.pdf", 1, 3, "Stage 3", 3, "Not Started" },
-                    { 4, new DateTime(2024, 11, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(87), "Description for Stage 4", "File4.pdf", "File4.pdf", 1, 4, "Stage 4", 4, "Not Started" },
-                    { 5, new DateTime(2024, 8, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(92), "Description for Stage 1", "File5.pdf", "File5.pdf", 2, 5, "Stage 1", 1, "Not Started" },
-                    { 6, new DateTime(2024, 9, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(100), "Description for Stage 2", "File6.pdf", "File6.pdf", 2, 6, "Stage 2", 2, "Not Started" },
-                    { 7, new DateTime(2024, 10, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(105), "Description for Stage 3", "File7.pdf", "File7.pdf", 2, 7, "Stage 3", 3, "Not Started" },
-                    { 8, new DateTime(2024, 11, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(110), "Description for Stage 4", "File8.pdf", "File8.pdf", 2, 8, "Stage 4", 4, "Not Started" }
+                    { 1, new DateTime(2024, 11, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1553), null, null, null, 1, 4, null, 4, null },
+                    { 2, new DateTime(2024, 8, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1594), "Description for Stage 1", "File5.pdf", "File5.pdf", 1, 5, "Stage 1", 5, "Not Started" },
+                    { 3, new DateTime(2024, 9, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1603), "Description for Stage 2", "File6.pdf", "File6.pdf", 1, 6, "Stage 2", 2, "Not Started" },
+                    { 4, new DateTime(2024, 10, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1609), null, null, null, 1, 7, null, 3, null },
+                    { 5, new DateTime(2024, 11, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1615), "Description for Stage 4", "File8.pdf", "File8.pdf", 1, 8, "Stage 8", 4, "Not Started" },
+                    { 6, new DateTime(2024, 11, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1627), "Description for Stage 4", "File8.pdf", "File8.pdf", 1, 9, "Stage 9", 4, "Not Started" },
+                    { 7, new DateTime(2024, 8, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1633), null, null, null, 1, 10, null, 10, null },
+                    { 8, new DateTime(2024, 9, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1638), null, null, null, 1, 11, null, 11, null },
+                    { 9, new DateTime(2024, 10, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1644), null, null, null, 1, 12, null, 12, null }
                 });
 
             migrationBuilder.InsertData(
@@ -300,10 +301,10 @@ namespace CoopWeb.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "Nickname", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProjectId", "RoleId", "SecurityStamp", "StudentID", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "6a38625d-722e-401f-953b-da8f8b3865c8", 0, "e6b6bee0-a7df-4dee-bacb-4ebd1c1bc705", "student2@example.com", false, "Jeed", "Deed", false, null, "asdasd", "STUDENT2@EXAMPLE.COM", "STUDENT2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEM3PZITHUiL+eEWT+gO/C23/nz5moCctJ+KjybI5wv9n9FoyNVKmgNp94I0mBIs2Dg==", null, false, 0, "1", "dd0a4b6e-7e1b-42d9-8640-e6af9dce905b", "00002", false, "student2@example.com" },
-                    { "6a40d6a5-77d5-4b60-b25f-6c2620267939", 0, "16b953dc-bafe-42c3-af65-2155581c78db", "staff@example.com", false, "Jane", "Doe", false, null, "Janie", "STAFF@EXAMPLE.COM", "STAFF@EXAMPLE.COM", "AQAAAAIAAYagAAAAECodCPHg5XEnvdcXFMY/mf0VjSsCWZnsYzGXEIY+mFMuh7FTrI1LcvDJP5pVzN9aUA==", null, false, 0, "2", "2f74521c-d973-4236-bfd5-143e0f9e722b", null, false, "staff@example.com" },
-                    { "88ac8de6-b57c-4cc7-9cd7-8e6e22e09dea", 0, "81777300-944a-4df7-94cf-de7aab2b598c", "teacher@example.com", false, "Jim", "Beam", false, null, "Jimmy", "TEACHER@EXAMPLE.COM", "TEACHER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEI+25bQc7qadQwrxmvEC5GiOibfTl2MJQImHZseVw+JivE8Yiu7bGmwUXPnxAf5hCA==", null, false, 0, "3", "9a74dd77-5266-43e7-aeef-436a6d70b4d4", null, false, "teacher@example.com" },
-                    { "9324110c-35ac-485c-9dff-6f92b07d01ad", 0, "bad6c4f4-4b48-4d7a-a257-1cdb283405c2", "student@example.com", false, "John", "Doe", false, null, "Johnny", "STUDENT@EXAMPLE.COM", "STUDENT@EXAMPLE.COM", "AQAAAAIAAYagAAAAEEyKj8H+FVcKGpKHU5k0zTEKrQliY5kqwqisVWkAwYQuFqqzH0uicvdGmee/YOtv3Q==", null, false, 0, "1", "f7131d11-9af6-4030-a335-1a4e897a961a", "00001", false, "student@example.com" }
+                    { "05f088ba-33fb-4056-82ec-d3f9c193e6e3", 0, "fb6ce9b3-d62d-4cb0-9b3c-363149d47c23", "student2@example.com", false, "Jeed", "Deed", false, null, "asdasd", "STUDENT2@EXAMPLE.COM", "STUDENT2@EXAMPLE.COM", "AQAAAAIAAYagAAAAENOI9C34QvohyOD5JEJTW/L3Ov+2eE356mDxR/5QtAeintvO+py+AO5KLh7n4ONhrg==", null, false, 0, "1", "0c12677a-0ff2-476c-905d-1a30e8541ca1", "00002", false, "student2@example.com" },
+                    { "759c92ec-9e55-40a3-a03a-997dcf0b98a4", 0, "e17a79f8-0224-4727-ad23-b141e896d28e", "student@example.com", false, "John", "Doe", false, null, "Johnny", "STUDENT@EXAMPLE.COM", "STUDENT@EXAMPLE.COM", "AQAAAAIAAYagAAAAEAuIJObaFuGqmRt4/doHhnca8OWtMwDsSjjNbQ98ZZ22ARF52RlabVJdQxOzwzgJUA==", null, false, 0, "1", "3068c8d7-b6a3-4d6e-82f4-dc0f2c24c831", "00001", false, "student@example.com" },
+                    { "d92285f8-643b-4074-bc84-0e202fc39684", 0, "eb995fb4-a398-40d3-9392-6935b46c81ce", "teacher@example.com", false, "Jim", "Beam", false, null, "Jimmy", "TEACHER@EXAMPLE.COM", "TEACHER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOuS+zDgJQxFIlFeBwbudRmKocLmTWAefXDHyfZYLoSR4dFZOlmATc+OdDUuLzUs2A==", null, false, 0, "3", "004859db-40b9-408d-ae8f-81415e8d9d08", null, false, "teacher@example.com" },
+                    { "f798ac8a-6146-4152-b796-7071e750a2e9", 0, "a3ee970c-dd18-4124-b444-cb0624db9f09", "staff@example.com", false, "Jane", "Doe", false, null, "Janie", "STAFF@EXAMPLE.COM", "STAFF@EXAMPLE.COM", "AQAAAAIAAYagAAAAEJX1xaIi1H4/9sLxsGMYg1lq56ZZAsz0dKaJGBhrmks6063wGPLesnwhx85/1eoc9Q==", null, false, 0, "2", "a32ee8d8-339f-4d71-a73f-4e4dd0ad6d92", null, false, "staff@example.com" }
                 });
 
             migrationBuilder.CreateIndex(

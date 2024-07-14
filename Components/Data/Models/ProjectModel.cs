@@ -27,12 +27,12 @@ namespace CoopWeb.Data
         public int StageId { get; set; }
         public int ProjectId { get; set; }
         public int StageNumber { get; set; }
-        public string StageName { get; set; }
-        public string FileName { get; set; }
-        public string Status { get; set; }
+        public string? StageName { get; set; }
+        public string? FileName { get; set; }
+        public string? Status { get; set; }
         public DateTime? Deadline { get; set; }
-        public string Description { get; set; }
-        public string FilePath { get; set; }
+        public string? Description { get; set; }
+        public string? FilePath { get; set; }
     }
 
 }

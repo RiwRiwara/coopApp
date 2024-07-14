@@ -36,10 +36,16 @@ else
                         <th class="text-center text-nowrap">ประธาน</th>
                         <th class="text-center text-nowrap">กรรมการ</th>
                         <th class="text-center text-nowrap">กรรมการ</th>
-                        <th class="text-center text-nowrap">ส่งส่วนที่ 1</th>
-                        <th class="text-center text-nowrap">ส่งส่วนที่ 2</th>
-                        <th class="text-center text-nowrap">ส่งส่วนที่ 3</th>
-                        <th class="text-center text-nowrap">ส่งส่วนที่ 4</th>
+                        <th class="text-center text-nowrap">4 ตรวจ format เล่ม ฉ.สมบูรณ์ </th>
+                        <th class="text-center text-nowrap">5 วันที่นัดสอบ</th>
+                        <th class="text-center text-nowrap">6 วันที่สอบ</th>
+                        <th class="text-center text-nowrap">7 แก้ไขหลังสอบ</th>
+                        <th class="text-center text-nowrap">8 ตรวจ format เล่ม ฉ.สมบูรณ์ ก่อนเข้าเล่ม</th>
+                        <th class="text-center text-nowrap">9 ส่งเล่มและ Flashdrive</th>
+                        <th class="text-center text-nowrap">10 ส่ง abstract</th>
+                        <th class="text-center text-nowrap">11 ส่ง Full paper</th>
+                        <th class="text-center text-nowrap">12 สรุปคะแนน</th>
+                        <th class="text-center text-nowrap"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,16 +79,23 @@ else
                                         @foreach (var stage in ProjectStages[project.ProjectId])
                                         {
                                             <td >
+    @if (stage.StageId == 5 || stage.StageId == 6 || stage.StageId == 8 || stage.StageId == 9)
+    {
                                         <div>
                                             <p>
-                                                รอบที่ @stage.StageNumber : @stage.StageName
+                                                รอบที่ @stage.StageId : @stage.StageName
                                             </p>
                                             <p>
                                                 กำหนดเส้นตาย: @stage.Deadline?.ToString("yyyy-MM-dd")
                                             </p>
                                             <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
-
                                         </div>
+                        }
+                                            else{
+                                                <div>
+                                                        @stage.Deadline?.ToString("yyyy-MM-dd")
+                                                </div>
+                                            }
 
                                             </td>
                                         }

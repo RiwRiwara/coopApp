@@ -38,64 +38,21 @@ namespace CoopWeb.Data
         {
             var stages = new List<Stage>
             {
+
                 new Stage
                 {
                     Id = 1,
-                    StageId = 1,
+                    StageId = 4,
                     ProjectId = 1,
-                    StageNumber = 1,
-                    StageName = "Stage 1",
-                    FileName = "File1.pdf",
-                    Status = "Not Started",
-                    Deadline = DateTime.Now.AddMonths(1),
-                    Description = "Description for Stage 1",
-                    FilePath = "File1.pdf"
+                    StageNumber = 4,
+                    Deadline = DateTime.Now.AddMonths(4),
                 },
                 new Stage
                 {
                     Id = 2,
-                    StageId = 2,
-                    ProjectId = 1,
-                    StageNumber = 2,
-                    StageName = "Stage 2",
-                    FileName = "File2.pdf",
-                    Status = "Not Started",
-                    Deadline = DateTime.Now.AddMonths(2),
-                    Description = "Description for Stage 2",
-                    FilePath = "File2.pdf"
-                },
-                new Stage
-                {
-                    Id = 3,
-                    StageId = 3,
-                    ProjectId = 1,
-                    StageNumber = 3,
-                    StageName = "Stage 3",
-                    FileName = "File3.pdf",
-                    Status = "Not Started",
-                    Deadline = DateTime.Now.AddMonths(3),
-                    Description = "Description for Stage 3",
-                    FilePath = "File3.pdf"
-                },
-                new Stage
-                {
-                    Id = 4,
-                    StageId = 4,
-                    ProjectId = 1,
-                    StageNumber = 4,
-                    StageName = "Stage 4",
-                    FileName = "File4.pdf",
-                    Status = "Not Started",
-                    Deadline = DateTime.Now.AddMonths(4),
-                    Description = "Description for Stage 4",
-                    FilePath = "File4.pdf"
-                },
-                new Stage
-                {
-                    Id = 5,
                     StageId = 5,
-                    ProjectId = 2,
-                    StageNumber = 1,
+                    ProjectId = 1,
+                    StageNumber = 5,
                     StageName = "Stage 1",
                     FileName = "File5.pdf",
                     Status = "Not Started",
@@ -105,9 +62,9 @@ namespace CoopWeb.Data
                 },
                 new Stage
                 {
-                    Id = 6,
+                    Id = 3,
                     StageId = 6,
-                    ProjectId = 2,
+                    ProjectId = 1,
                     StageNumber = 2,
                     StageName = "Stage 2",
                     FileName = "File6.pdf",
@@ -118,30 +75,62 @@ namespace CoopWeb.Data
                 },
                 new Stage
                 {
-                    Id = 7,
+                    Id = 4,
                     StageId = 7,
-                    ProjectId = 2,
+                    ProjectId = 1,
                     StageNumber = 3,
-                    StageName = "Stage 3",
-                    FileName = "File7.pdf",
-                    Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(3),
-                    Description = "Description for Stage 3",
-                    FilePath = "File7.pdf"
                 },
                 new Stage
                 {
-                    Id = 8,
+                    Id = 5,
                     StageId = 8,
-                    ProjectId = 2,
+                    ProjectId = 1,
                     StageNumber = 4,
-                    StageName = "Stage 4",
+                    StageName = "Stage 8",
                     FileName = "File8.pdf",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(4),
                     Description = "Description for Stage 4",
                     FilePath = "File8.pdf"
-                }
+                },
+                new Stage
+                {
+                    Id = 6,
+                    StageId = 9,
+                    ProjectId = 1,
+                    StageNumber = 4,
+                    StageName = "Stage 9",
+                    FileName = "File8.pdf",
+                    Status = "Not Started",
+                    Deadline = DateTime.Now.AddMonths(4),
+                    Description = "Description for Stage 4",
+                    FilePath = "File8.pdf"
+                },
+                                new Stage
+                {
+                    Id = 7,
+                    StageId = 10,
+                    ProjectId = 1,
+                    StageNumber = 10,
+                    Deadline = DateTime.Now.AddMonths(1),
+                },
+                new Stage
+                {
+                    Id = 8,
+                    StageId = 11,
+                    ProjectId = 1,
+                    StageNumber = 11,
+                    Deadline = DateTime.Now.AddMonths(2),
+                },
+                new Stage
+                {
+                    Id = 9,
+                    StageId = 12,
+                    ProjectId = 1,
+                    StageNumber = 12,
+                    Deadline = DateTime.Now.AddMonths(3),
+                },
             };
 
             return stages;

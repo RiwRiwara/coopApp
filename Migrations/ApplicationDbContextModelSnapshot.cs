@@ -152,9 +152,9 @@ namespace CoopWeb.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6a40d6a5-77d5-4b60-b25f-6c2620267939",
+                            Id = "f798ac8a-6146-4152-b796-7071e750a2e9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "16b953dc-bafe-42c3-af65-2155581c78db",
+                            ConcurrencyStamp = "a3ee970c-dd18-4124-b444-cb0624db9f09",
                             Email = "staff@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jane",
@@ -163,19 +163,19 @@ namespace CoopWeb.Migrations
                             Nickname = "Janie",
                             NormalizedEmail = "STAFF@EXAMPLE.COM",
                             NormalizedUserName = "STAFF@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECodCPHg5XEnvdcXFMY/mf0VjSsCWZnsYzGXEIY+mFMuh7FTrI1LcvDJP5pVzN9aUA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJX1xaIi1H4/9sLxsGMYg1lq56ZZAsz0dKaJGBhrmks6063wGPLesnwhx85/1eoc9Q==",
                             PhoneNumberConfirmed = false,
                             ProjectId = 0,
                             RoleId = "2",
-                            SecurityStamp = "2f74521c-d973-4236-bfd5-143e0f9e722b",
+                            SecurityStamp = "a32ee8d8-339f-4d71-a73f-4e4dd0ad6d92",
                             TwoFactorEnabled = false,
                             UserName = "staff@example.com"
                         },
                         new
                         {
-                            Id = "88ac8de6-b57c-4cc7-9cd7-8e6e22e09dea",
+                            Id = "d92285f8-643b-4074-bc84-0e202fc39684",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "81777300-944a-4df7-94cf-de7aab2b598c",
+                            ConcurrencyStamp = "eb995fb4-a398-40d3-9392-6935b46c81ce",
                             Email = "teacher@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jim",
@@ -184,19 +184,19 @@ namespace CoopWeb.Migrations
                             Nickname = "Jimmy",
                             NormalizedEmail = "TEACHER@EXAMPLE.COM",
                             NormalizedUserName = "TEACHER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI+25bQc7qadQwrxmvEC5GiOibfTl2MJQImHZseVw+JivE8Yiu7bGmwUXPnxAf5hCA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOuS+zDgJQxFIlFeBwbudRmKocLmTWAefXDHyfZYLoSR4dFZOlmATc+OdDUuLzUs2A==",
                             PhoneNumberConfirmed = false,
                             ProjectId = 0,
                             RoleId = "3",
-                            SecurityStamp = "9a74dd77-5266-43e7-aeef-436a6d70b4d4",
+                            SecurityStamp = "004859db-40b9-408d-ae8f-81415e8d9d08",
                             TwoFactorEnabled = false,
                             UserName = "teacher@example.com"
                         },
                         new
                         {
-                            Id = "9324110c-35ac-485c-9dff-6f92b07d01ad",
+                            Id = "759c92ec-9e55-40a3-a03a-997dcf0b98a4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bad6c4f4-4b48-4d7a-a257-1cdb283405c2",
+                            ConcurrencyStamp = "e17a79f8-0224-4727-ad23-b141e896d28e",
                             Email = "student@example.com",
                             EmailConfirmed = false,
                             FirstName = "John",
@@ -205,20 +205,20 @@ namespace CoopWeb.Migrations
                             Nickname = "Johnny",
                             NormalizedEmail = "STUDENT@EXAMPLE.COM",
                             NormalizedUserName = "STUDENT@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEyKj8H+FVcKGpKHU5k0zTEKrQliY5kqwqisVWkAwYQuFqqzH0uicvdGmee/YOtv3Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAuIJObaFuGqmRt4/doHhnca8OWtMwDsSjjNbQ98ZZ22ARF52RlabVJdQxOzwzgJUA==",
                             PhoneNumberConfirmed = false,
                             ProjectId = 0,
                             RoleId = "1",
-                            SecurityStamp = "f7131d11-9af6-4030-a335-1a4e897a961a",
+                            SecurityStamp = "3068c8d7-b6a3-4d6e-82f4-dc0f2c24c831",
                             StudentID = "00001",
                             TwoFactorEnabled = false,
                             UserName = "student@example.com"
                         },
                         new
                         {
-                            Id = "6a38625d-722e-401f-953b-da8f8b3865c8",
+                            Id = "05f088ba-33fb-4056-82ec-d3f9c193e6e3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e6b6bee0-a7df-4dee-bacb-4ebd1c1bc705",
+                            ConcurrencyStamp = "fb6ce9b3-d62d-4cb0-9b3c-363149d47c23",
                             Email = "student2@example.com",
                             EmailConfirmed = false,
                             FirstName = "Jeed",
@@ -227,11 +227,11 @@ namespace CoopWeb.Migrations
                             Nickname = "asdasd",
                             NormalizedEmail = "STUDENT2@EXAMPLE.COM",
                             NormalizedUserName = "STUDENT2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM3PZITHUiL+eEWT+gO/C23/nz5moCctJ+KjybI5wv9n9FoyNVKmgNp94I0mBIs2Dg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENOI9C34QvohyOD5JEJTW/L3Ov+2eE356mDxR/5QtAeintvO+py+AO5KLh7n4ONhrg==",
                             PhoneNumberConfirmed = false,
                             ProjectId = 0,
                             RoleId = "1",
-                            SecurityStamp = "dd0a4b6e-7e1b-42d9-8640-e6af9dce905b",
+                            SecurityStamp = "0c12677a-0ff2-476c-905d-1a30e8541ca1",
                             StudentID = "00002",
                             TwoFactorEnabled = false,
                             UserName = "student2@example.com"
@@ -295,15 +295,12 @@ namespace CoopWeb.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("ProjectId")
@@ -313,14 +310,12 @@ namespace CoopWeb.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("StageName")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("StageNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -331,76 +326,32 @@ namespace CoopWeb.Migrations
                         new
                         {
                             Id = 1,
-                            Deadline = new DateTime(2024, 8, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(39),
-                            Description = "Description for Stage 1",
-                            FileName = "File1.pdf",
-                            FilePath = "File1.pdf",
+                            Deadline = new DateTime(2024, 11, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1553),
                             ProjectId = 1,
-                            StageId = 1,
-                            StageName = "Stage 1",
-                            StageNumber = 1,
-                            Status = "Not Started"
+                            StageId = 4,
+                            StageNumber = 4
                         },
                         new
                         {
                             Id = 2,
-                            Deadline = new DateTime(2024, 9, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(77),
-                            Description = "Description for Stage 2",
-                            FileName = "File2.pdf",
-                            FilePath = "File2.pdf",
+                            Deadline = new DateTime(2024, 8, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1594),
+                            Description = "Description for Stage 1",
+                            FileName = "File5.pdf",
+                            FilePath = "File5.pdf",
                             ProjectId = 1,
-                            StageId = 2,
-                            StageName = "Stage 2",
-                            StageNumber = 2,
+                            StageId = 5,
+                            StageName = "Stage 1",
+                            StageNumber = 5,
                             Status = "Not Started"
                         },
                         new
                         {
                             Id = 3,
-                            Deadline = new DateTime(2024, 10, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(82),
-                            Description = "Description for Stage 3",
-                            FileName = "File3.pdf",
-                            FilePath = "File3.pdf",
-                            ProjectId = 1,
-                            StageId = 3,
-                            StageName = "Stage 3",
-                            StageNumber = 3,
-                            Status = "Not Started"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Deadline = new DateTime(2024, 11, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(87),
-                            Description = "Description for Stage 4",
-                            FileName = "File4.pdf",
-                            FilePath = "File4.pdf",
-                            ProjectId = 1,
-                            StageId = 4,
-                            StageName = "Stage 4",
-                            StageNumber = 4,
-                            Status = "Not Started"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Deadline = new DateTime(2024, 8, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(92),
-                            Description = "Description for Stage 1",
-                            FileName = "File5.pdf",
-                            FilePath = "File5.pdf",
-                            ProjectId = 2,
-                            StageId = 5,
-                            StageName = "Stage 1",
-                            StageNumber = 1,
-                            Status = "Not Started"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Deadline = new DateTime(2024, 9, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(100),
+                            Deadline = new DateTime(2024, 9, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1603),
                             Description = "Description for Stage 2",
                             FileName = "File6.pdf",
                             FilePath = "File6.pdf",
-                            ProjectId = 2,
+                            ProjectId = 1,
                             StageId = 6,
                             StageName = "Stage 2",
                             StageNumber = 2,
@@ -408,29 +359,61 @@ namespace CoopWeb.Migrations
                         },
                         new
                         {
-                            Id = 7,
-                            Deadline = new DateTime(2024, 10, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(105),
-                            Description = "Description for Stage 3",
-                            FileName = "File7.pdf",
-                            FilePath = "File7.pdf",
-                            ProjectId = 2,
+                            Id = 4,
+                            Deadline = new DateTime(2024, 10, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1609),
+                            ProjectId = 1,
                             StageId = 7,
-                            StageName = "Stage 3",
-                            StageNumber = 3,
+                            StageNumber = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Deadline = new DateTime(2024, 11, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1615),
+                            Description = "Description for Stage 4",
+                            FileName = "File8.pdf",
+                            FilePath = "File8.pdf",
+                            ProjectId = 1,
+                            StageId = 8,
+                            StageName = "Stage 8",
+                            StageNumber = 4,
                             Status = "Not Started"
                         },
                         new
                         {
-                            Id = 8,
-                            Deadline = new DateTime(2024, 11, 13, 18, 2, 32, 90, DateTimeKind.Local).AddTicks(110),
+                            Id = 6,
+                            Deadline = new DateTime(2024, 11, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1627),
                             Description = "Description for Stage 4",
                             FileName = "File8.pdf",
                             FilePath = "File8.pdf",
-                            ProjectId = 2,
-                            StageId = 8,
-                            StageName = "Stage 4",
+                            ProjectId = 1,
+                            StageId = 9,
+                            StageName = "Stage 9",
                             StageNumber = 4,
                             Status = "Not Started"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Deadline = new DateTime(2024, 8, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1633),
+                            ProjectId = 1,
+                            StageId = 10,
+                            StageNumber = 10
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Deadline = new DateTime(2024, 9, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1638),
+                            ProjectId = 1,
+                            StageId = 11,
+                            StageNumber = 11
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Deadline = new DateTime(2024, 10, 14, 21, 34, 42, 942, DateTimeKind.Local).AddTicks(1644),
+                            ProjectId = 1,
+                            StageId = 12,
+                            StageNumber = 12
                         });
                 });
 

@@ -273,7 +273,7 @@
 {
         await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FilePath, "Rejected");
 }
-    private async Task OnUpdateStageDeadlineAsync(Stage stage, DateTime deadline)
+    private async Task OnUpdateStageDeadlineAsync(Stage stage, DateTime? deadline)
 {
         await ProjectService.UpdateStageDeadlineAsync(stage.Id, deadline);
 }

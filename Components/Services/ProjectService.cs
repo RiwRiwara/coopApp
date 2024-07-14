@@ -149,7 +149,7 @@ public async Task UpdateStageFilePathAsync(int stageId, string filePath, string 
 
 
 
-public async Task UpdateStageDeadlineAsync(int stageId, DateTime deadline)
+public async Task UpdateStageDeadlineAsync(int stageId, DateTime? deadline)
 {
     var stage = await _context.Stages.FindAsync(stageId);
     if (stage != null)
