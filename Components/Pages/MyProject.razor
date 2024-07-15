@@ -2,6 +2,10 @@
 @using CoopWeb.Data
 @using CoopWeb.Services
 @using CoopWeb.Utils
+@using Azure.Storage.Blobs
+
+
+
 @using Microsoft.AspNetCore.Identity
 @inject IUserService UserService
 @inject UserManager<ApplicationUser> UserManager
@@ -76,6 +80,8 @@
         <div class="row row-cols-1 row-cols-md-2 g-4">
 @foreach (var stage in ProjectStages)
 {
+    @if (stage.StageId == 5 || stage.StageId == 6 || stage.StageId == 8 || stage.StageId == 9)
+    {
     <div class="col">
         <div class="card">
             <div class="card-body">
@@ -85,14 +91,17 @@
                 </div>
                 <form>
                     <div class="mb-3">
-                        <InputFile OnChange="(e => HandleFileSelected(e, stage.Id))" />
+                        <InputFile OnChange="(e => HandleFileSelected(e, stage))" />
                     </div>
-                    <button type="button" class="btn btn-primary" @onclick="(e => UploadFile(stage))">Upload</button>
+                    <button type="button" class="btn btn-primary" @onclick="() => UploadFile(stage)">Upload</button>
+
                     
                 </form>
             </div>
         </div>
     </div>
+    }
+
 }
 
 
@@ -102,8 +111,8 @@
 
 @code {
     private List<Stage> ProjectStages = new List<Stage>{};
-
-
+    private Stage SelectedStage;
+    private InputFileChangeEventArgs SelectedFile;
 
     private string BadgeColor(string status)
     {
@@ -134,34 +143,55 @@
     }
 
 
-private async Task HandleFileSelected(InputFileChangeEventArgs e, int stageId)
-{
-    var stage = ProjectStages.FirstOrDefault(s => s.Id == stageId);
-    if (stage != null)
+private async Task HandleFileSelected(InputFileChangeEventArgs e, Stage stage)
     {
-        var file = e.File;
-        if (file != null)
-        {
-            // Example path generation
-            var fileName = $"uploads/{stage.StageName}/{file.Name}";
-            Console.WriteLine($"File path: {fileName}");
+        SelectedStage = stage; // Store the selected stage for later use in UploadFile
+        SelectedFile = e; // Store the selected file for later use in UploadFile
+        // You can handle additional logic here if needed
+    }
 
-            stage.FilePath = fileName;
+    private async Task UploadFile(Stage stage)
+    {
+        if (SelectedStage != null)
+        {
+            try
+            {
+                // Replace with your actual Azure Storage connection string
+                var connectionString = "DefaultEndpointsProtocol=https;AccountName=ezeventstorage;AccountKey=z1QENkmBF0QFS4toPf3xz15uYP1DCMqTG+03ALgU/a+xFmudi+frCy9aNVwph0qipFpdd19jADH1+AStW4OnNg==;EndpointSuffix=core.windows.net";
+
+                // Create a BlobServiceClient object which will be used to create a container client
+                var blobServiceClient = new BlobServiceClient(connectionString);
+
+                // Set the name of the container
+                var containerName = "resources";
+
+                // Create the container client object
+                var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+                // Get a reference to a blob
+                var blobClient = containerClient.GetBlobClient(stage.FileName); // Use stage.FileName or generate a unique file name
+
+                // Open a stream to the file
+                using (var stream = SelectedFile.File.OpenReadStream())
+                {
+                    // Upload the file to Azure Storage
+                    await blobClient.UploadAsync(stream, true);
+                }
+
+                // Update the stage status after successful upload
+                await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FileName, "Pending");
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Console.WriteLine($"Error uploading file: {ex.Message}");
+            }
+        }
+        else
+        {
+            // Handle case where no stage is selected
+            // You might want to add error handling or notify the user
         }
     }
-}
-
-private async Task UploadFile(Stage stage)
-{
-    Console.WriteLine("Upload file");
-    if (!string.IsNullOrEmpty(stage.FilePath))
-    {
-        // Save file path to database
-        await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FilePath, "Pending");
-    }
-}
-
-
-
     
 }
