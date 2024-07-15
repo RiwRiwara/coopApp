@@ -157,7 +157,7 @@ private async Task HandleFileSelected(InputFileChangeEventArgs e, Stage stage)
             try
             {
                 // Replace with your actual Azure Storage connection string
-                var connectionString = "DefaultEndpointsProtocol=https;AccountName=ezeventstorage;AccountKey=z1QENkmBF0QFS4toPf3xz15uYP1DCMqTG+03ALgU/a+xFmudi+frCy9aNVwph0qipFpdd19jADH1+AStW4OnNg==;EndpointSuffix=core.windows.net";
+                @* var connectionString = "";
 
                 // Create a BlobServiceClient object which will be used to create a container client
                 var blobServiceClient = new BlobServiceClient(connectionString);
@@ -176,10 +176,10 @@ private async Task HandleFileSelected(InputFileChangeEventArgs e, Stage stage)
                 {
                     // Upload the file to Azure Storage
                     await blobClient.UploadAsync(stream, true);
-                }
+                } *@
 
                 // Update the stage status after successful upload
-                await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FileName, "Pending");
+                await ProjectService.UpdateStageFilePathAsync(stage.Id, "test.pdf", "Pending");
             }
             catch (Exception ex)
             {
