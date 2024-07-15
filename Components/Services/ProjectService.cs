@@ -34,17 +34,15 @@ namespace CoopWeb.Services
             {
                 new Stage
                 {
-                    StageNumber = 1,
-                    StageName = "Stage 1",
-                    Status = "Not Started",
-                    Deadline = DateTime.Now.AddMonths(1),
-                    Description = "Description for Stage 1",
-                    ProjectId = project.ProjectId,
-                    FileName = "temp.pdf"
+                    StageId = 4,
+                                        ProjectId = project.ProjectId,
+                    StageNumber = 4,
+                    Deadline = DateTime.Now.AddMonths(4),
                 },
                 new Stage
                 {
-                    StageNumber = 2,
+                    StageNumber = 5,
+                    StageId = 5,
                     StageName = "Stage 2",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(2),
@@ -54,7 +52,8 @@ namespace CoopWeb.Services
                 },
                 new Stage
                 {
-                    StageNumber = 3,
+                    StageNumber = 6,
+                    StageId = 6,
                     StageName = "Stage 3",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(3),
@@ -64,13 +63,64 @@ namespace CoopWeb.Services
                 },
                 new Stage
                 {
-                    StageNumber = 4,
+                    StageId = 7,
+                                        ProjectId = project.ProjectId,
+                    StageNumber = 7,
+                    Deadline = DateTime.Now.AddMonths(4),
+                },
+                new Stage
+                {
+                    StageNumber =8,
+                    StageId =8,
                     StageName = "Stage 4",
                     Status = "Not Started",
                     Deadline = DateTime.Now.AddMonths(4),
                     Description = "Description for Stage 4",
                     ProjectId = project.ProjectId,
                     FileName = "temp.pdf"
+                },
+                new Stage
+                {
+                    StageNumber = 9,
+                    StageId = 9,
+                    StageName = "Stage 4",
+                    Status = "Not Started",
+                    Deadline = DateTime.Now.AddMonths(4),
+                    Description = "Description for Stage 4",
+                    ProjectId = project.ProjectId,
+                    FileName = "temp.pdf"
+                },
+                new Stage
+                {
+                    StageId = 10,
+                                        ProjectId = project.ProjectId,
+
+                    StageNumber = 10,
+                    Deadline = DateTime.Now.AddMonths(4),
+                },
+                new Stage
+                {
+                    StageId = 11,
+                                        ProjectId = project.ProjectId,
+
+                    StageNumber = 11,
+                    Deadline = DateTime.Now.AddMonths(4),
+                },
+                new Stage
+                {
+                    StageId = 12,
+                                        ProjectId = project.ProjectId,
+
+                    StageNumber = 12,
+                    Deadline = DateTime.Now.AddMonths(4),
+                },
+                new Stage
+                {
+                    StageId = 13,
+                                        ProjectId = project.ProjectId,
+
+                    StageNumber = 13,
+                    Deadline = DateTime.Now.AddMonths(4),
                 }
             };
 
@@ -126,38 +176,38 @@ namespace CoopWeb.Services
         }
 
         public async Task UpdateStageStatusAsync(int stageId, string newStatus)
-{
-    var stage = await _context.Stages.FindAsync(stageId);
-    if (stage != null)
-    {
-        stage.Status = newStatus;
-        await _context.SaveChangesAsync();
-    }
-}
+        {
+            var stage = await _context.Stages.FindAsync(stageId);
+            if (stage != null)
+            {
+                stage.Status = newStatus;
+                await _context.SaveChangesAsync();
+            }
+        }
 
 
-public async Task UpdateStageFilePathAsync(int stageId, string filePath, string status)
-{
-    var stage = await _context.Stages.FindAsync(stageId);
-    if (stage != null)
-    {
-        stage.FilePath = filePath;
-        stage.Status = status;
-        await _context.SaveChangesAsync();
-    }
-}
+        public async Task UpdateStageFilePathAsync(int stageId, string filePath, string status)
+        {
+            var stage = await _context.Stages.FindAsync(stageId);
+            if (stage != null)
+            {
+                stage.FilePath = filePath;
+                stage.Status = status;
+                await _context.SaveChangesAsync();
+            }
+        }
 
 
 
-public async Task UpdateStageDeadlineAsync(int stageId, DateTime? deadline)
-{
-    var stage = await _context.Stages.FindAsync(stageId);
-    if (stage != null)
-    {
-        stage.Deadline = deadline;
-        await _context.SaveChangesAsync();
-    }
-}
+        public async Task UpdateStageDeadlineAsync(int stageId, DateTime? deadline)
+        {
+            var stage = await _context.Stages.FindAsync(stageId);
+            if (stage != null)
+            {
+                stage.Deadline = deadline;
+                await _context.SaveChangesAsync();
+            }
+        }
 
 
 
