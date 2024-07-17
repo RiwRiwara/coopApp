@@ -209,7 +209,28 @@ namespace CoopWeb.Services
             }
         }
 
+        public async Task UpdateStageFileDataAsync(int stageId, byte[] fileData, string fileName, string status)
+        {
+            var stage = await _context.Stages.FindAsync(stageId);
+            if (stage != null)
+            {
+                stage.FileData = fileData;
+                stage.FileName = fileName;
+                stage.Status = status;
+                await _context.SaveChangesAsync();
+            }
+        }
 
+
+        public async Task<(byte[] FileData, string FileName)> GetStageFileDataAsync(int stageId)
+        {
+            var stage = await _context.Stages.FindAsync(stageId);
+            if (stage != null && stage.FileData != null)
+            {
+                return (stage.FileData, stage.FileName);
+            }
+            return (null, null);
+        }
 
 
     }

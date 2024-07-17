@@ -33,6 +33,7 @@ namespace CoopWeb.Data
         public DateTime? Deadline { get; set; }
         public string? Description { get; set; }
         public string? FilePath { get; set; }
+        public byte[]? FileData { get; set; } 
     }
 
 }

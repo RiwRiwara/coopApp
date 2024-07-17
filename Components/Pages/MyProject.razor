@@ -4,8 +4,6 @@
 @using CoopWeb.Utils
 @using Azure.Storage.Blobs
 
-
-
 @using Microsoft.AspNetCore.Identity
 @inject IUserService UserService
 @inject UserManager<ApplicationUser> UserManager
@@ -14,14 +12,14 @@
 @inject ProjectService ProjectService
 @rendermode InteractiveServer
 
-<PageTitle>My Project</PageTitle>
+<title>My Project</title>
 
 <div class="container my-5">
     @if (ProjectData == null)
     {
         <p><em>
-            You are not a member of any project group. Please contact the project chairman for more information.
-        </em></p>
+                You are not a member of any project group. Please contact the project chairman for more information.
+            </em></p>
     }
     else
     {
@@ -30,7 +28,7 @@
         </h4>
         <div class="card mb-3">
             <div class="card-header">
-                ชื่อกลุ่ม :  @ProjectData.ProjectName
+                ชื่อกลุ่ม : @ProjectData.ProjectName
             </div>
             <div class="card-body">
                 <h5 class="">สมาชิก:</h5>
@@ -78,41 +76,36 @@
             สถานะของโครงงาน
         </h4>
         <div class="row row-cols-1 row-cols-md-2 g-4">
-@foreach (var stage in ProjectStages)
-{
-    @if (stage.StageId == 5 || stage.StageId == 6 || stage.StageId == 8 || stage.StageId == 9)
-    {
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-row gap-2 align-items-center mb-4">
-                    <div class="h5">@stage.StageName</div>
-                    <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
-                </div>
-                <form>
-                    <div class="mb-3">
-                        <InputFile OnChange="(e => HandleFileSelected(e, stage))" />
+            @foreach (var stage in ProjectStages)
+            {
+                @if (stage.StageId == 5 || stage.StageId == 6 || stage.StageId == 8 || stage.StageId == 9)
+                {
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row gap-2 align-items-center mb-4">
+                                    <div class="h5">@stage.StageName</div>
+                                    <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
+                                </div>
+                                <form>
+                                    <div class="mb-3">
+                                        <InputFile OnChange="(e => HandleFileSelected(e, stage))" />
+                                    </div>
+                                    <button type="button" class="btn btn-primary" @onclick="() => UploadFile(stage)">Upload</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-primary" @onclick="() => UploadFile(stage)">Upload</button>
-
-                    
-                </form>
-            </div>
-        </div>
-    </div>
-    }
-
-}
-
-
+                }
+            }
         </div>
     }
 </div>
 
 @code {
-    private List<Stage> ProjectStages = new List<Stage>{};
+    private List<Stage> ProjectStages = new List<Stage> { };
     private Stage SelectedStage;
-    private InputFileChangeEventArgs SelectedFile;
+    private IBrowserFile SelectedFile;
 
     private string BadgeColor(string status)
     {
@@ -138,48 +131,29 @@
         {
             Members = await UserService.GetProjectMembersAsync(ProjectData.ProjectId);
             ProjectStages = (await ProjectService.GetStagesByProjectIdAsync(ProjectData.ProjectId)).ToList();
-
         }
     }
 
-
-private async Task HandleFileSelected(InputFileChangeEventArgs e, Stage stage)
+    private async Task HandleFileSelected(InputFileChangeEventArgs e, Stage stage)
     {
         SelectedStage = stage; // Store the selected stage for later use in UploadFile
-        SelectedFile = e; // Store the selected file for later use in UploadFile
-        // You can handle additional logic here if needed
+        SelectedFile = e.File; // Store the selected file for later use in UploadFile
     }
 
     private async Task UploadFile(Stage stage)
     {
-        if (SelectedStage != null)
+        if (SelectedStage != null && SelectedFile != null)
         {
             try
             {
-                // Replace with your actual Azure Storage connection string
-                @* var connectionString = "";
+                using var memoryStream = new MemoryStream();
+                await SelectedFile.OpenReadStream().CopyToAsync(memoryStream);
+                var fileData = memoryStream.ToArray();
 
-                // Create a BlobServiceClient object which will be used to create a container client
-                var blobServiceClient = new BlobServiceClient(connectionString);
+                await ProjectService.UpdateStageFileDataAsync(stage.Id, fileData, SelectedFile.Name, "Pending");
 
-                // Set the name of the container
-                var containerName = "resources";
-
-                // Create the container client object
-                var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-
-                // Get a reference to a blob
-                var blobClient = containerClient.GetBlobClient(stage.FileName); // Use stage.FileName or generate a unique file name
-
-                // Open a stream to the file
-                using (var stream = SelectedFile.File.OpenReadStream())
-                {
-                    // Upload the file to Azure Storage
-                    await blobClient.UploadAsync(stream, true);
-                } *@
-
-                // Update the stage status after successful upload
-                await ProjectService.UpdateStageFilePathAsync(stage.Id, "test.pdf", "Pending");
+                SelectedStage = null;
+                SelectedFile = null;
             }
             catch (Exception ex)
             {
@@ -187,11 +161,5 @@ private async Task HandleFileSelected(InputFileChangeEventArgs e, Stage stage)
                 Console.WriteLine($"Error uploading file: {ex.Message}");
             }
         }
-        else
-        {
-            // Handle case where no stage is selected
-            // You might want to add error handling or notify the user
-        }
     }
-    
 }
