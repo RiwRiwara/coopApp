@@ -24,8 +24,8 @@
     else if (AllProjects.Count == 0)
     {
         <p><em>
-            ไม่มีโครงงานในระบบ
-        </em></p>
+                ไม่มีโครงงานในระบบ
+            </em></p>
     }
     else
     {
@@ -33,11 +33,14 @@
         <div class="container p-2 shadow-sm rounded my-4">
             @if (showForm)
             {
-                @if(isEditMode) {
+                @if (isEditMode)
+                {
                     <h2>
                         แก้ไขโครงงาน [@currentProject.ProjectId] - @currentProject.ProjectName
                     </h2>
-                }else{
+                }
+                else
+                {
                     <h2>
                         สร้างโครงงาน
                     </h2>
@@ -77,22 +80,21 @@
         {
             <div class="mb-3 container shadow-sm rounded p-2">
                 <h3 class="fw-bold ">
-                    Project Id : [@project.ProjectId] - 
+                    Project Id : [@project.ProjectId] -
                     @project.ProjectName
                 </h3>
 
                 <div class="my-2">
                     <RadzenStack Gap="1rem" Class="">
-                        <RadzenAccordion Multiple="true"
-                                        Collapse=@(args => Change(args, "Accordion", "collapsed"))
-                                        Expand=@(args => Change(args, "Accordion", "expanded"))>
+                        <RadzenAccordion Multiple="true" Collapse=@(args => Change(args, "Accordion", "collapsed"))
+                            Expand=@(args => Change(args, "Accordion", "expanded"))>
                             <Items>
                                 <RadzenAccordionItem Text="สมาชิก" Icon="account_box">
                                     @if (!ProjectMembers.ContainsKey(project.ProjectId))
                                     {
                                         <p><em>
-                                            โหลดข้อมูลสมาชิก...
-                                        </em></p>
+                                                โหลดข้อมูลสมาชิก...
+                                            </em></p>
                                     }
                                     else
                                     {
@@ -131,26 +133,31 @@
                                             {
                                                 <li class="list-group-item">
                                                     <p>
-                                                        รอบที่ @stage.StageNumber : @stage.StageName - สถานะ: @stage.Status - กำหนดเส้นตาย: @stage.Deadline?.ToString("yyyy-MM-dd")
+                                                        รอบที่ @stage.StageNumber : @stage.StageName - สถานะ: @stage.Status -
+                                                        กำหนดเส้นตาย: @stage.Deadline?.ToString("yyyy-MM-dd")
                                                     </p>
 
 
-                    <EditForm Model="@stage" OnValidSubmit="@(async () => await OnUpdateStageDeadlineAsync(stage, stage.Deadline))">
-                        <div class="input-group mb-3">
-                            <input id="deadlinePicker" type="date" class="form-control" @bind="@stage.Deadline" />
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-                    </EditForm>
+                                                    <EditForm Model="@stage"
+                                                        OnValidSubmit="@(async () => await OnUpdateStageDeadlineAsync(stage, stage.Deadline))">
+                                                        <div class="input-group mb-3">
+                                                            <input id="deadlinePicker" type="date" class="form-control"
+                                                                @bind="@stage.Deadline" />
+                                                            <button type="submit" class="btn btn-primary">Update</button>
+                                                        </div>
+                                                    </EditForm>
 
 
-                                                    <p>
-                                                        <a href="/file/@stage.FilePath">@stage.FilePath</a>
-                                                    </p>
+                                                    <a target="new" href="/uploads/@stage.FilePath">
+                                                        @stage.FileName
+                                                    </a>
 
-                                                <div class="d-flex flex-row gap-2 p-2 ">
-                                                    <button type="button" class="btn btn-success" @onclick="(e => OnApproved(stage))">Approved</button>
-                                                    <button type="button" class="btn btn-danger" @onclick="(e => OnRejected(stage))">Rejected</button>
-                                                </div>
+                                                    <div class="d-flex flex-row gap-2 p-2 ">
+                                                        <button type="button" class="btn btn-success"
+                                                            @onclick="(e => OnApproved(stage))">Approved</button>
+                                                        <button type="button" class="btn btn-danger"
+                                                            @onclick="(e => OnRejected(stage))">Rejected</button>
+                                                    </div>
 
                                                 </li>
 
@@ -265,17 +272,17 @@
 
 
     private async Task OnApproved(Stage stage)
-{
+    {
         await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FilePath, "Approved");
-}
+    }
 
     private async Task OnRejected(Stage stage)
-{
+    {
         await ProjectService.UpdateStageFilePathAsync(stage.Id, stage.FilePath, "Rejected");
-}
+    }
     private async Task OnUpdateStageDeadlineAsync(Stage stage, DateTime? deadline)
-{
+    {
         await ProjectService.UpdateStageDeadlineAsync(stage.Id, deadline);
-}
+    }
 
 }

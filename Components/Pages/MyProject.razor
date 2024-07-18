@@ -10,6 +10,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject NavigationManager NavigationManager
 @inject ProjectService ProjectService
+@inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 
 <title>My Project</title>
@@ -87,7 +88,15 @@
                                     <div class="h5">@stage.StageName</div>
                                     <div class="badge @(BadgeColor(stage.Status)) status-badge">@stage.Status</div>
                                 </div>
+
+                                <div class="d-flex my-2">
+                                    <a target="new" href="/uploads/@stage.FilePath">
+                                        @stage.FileName
+                                    </a>
+                                </div>
+
                                 <form>
+
                                     <div class="mb-3">
                                         <InputFile OnChange="(e => HandleFileSelected(e, stage))" />
                                     </div>
@@ -146,20 +155,43 @@
         {
             try
             {
-                using var memoryStream = new MemoryStream();
-                await SelectedFile.OpenReadStream().CopyToAsync(memoryStream);
-                var fileData = memoryStream.ToArray();
+                // Define the path to save the file
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var randomFileName = Path.GetRandomFileName() + Path.GetExtension(SelectedFile.Name);
+                // Generate a unique filename to avoid overwriting
+                var filePath = Path.Combine(folderPath, randomFileName);
 
-                await ProjectService.UpdateStageFileDataAsync(stage.Id, fileData, SelectedFile.Name, "Pending");
+                // Save the file to the specified path
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await SelectedFile.OpenReadStream().CopyToAsync(fileStream);
+                }
+
+                await ProjectService.UpdateStageFileDataAsync(stage.Id, filePath, SelectedFile.Name, "Pending", randomFileName);
 
                 SelectedStage = null;
                 SelectedFile = null;
             }
             catch (Exception ex)
             {
-                // Handle exceptions
                 Console.WriteLine($"Error uploading file: {ex.Message}");
             }
         }
+
+
     }
+
+    private async Task DownloadFile(string filePath)
+    {
+        var encodedFilePath = Uri.EscapeDataString(filePath);
+        var downloadUrl = $"api/FileDownloadController/download?filePath={encodedFilePath}";
+
+        await JSRuntime.InvokeVoidAsync("downloadFile", downloadUrl);
+    }
+
 }

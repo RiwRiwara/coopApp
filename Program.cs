@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Radzen;
 using Radzen.Blazor;
-
+using System;
+using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,10 +44,13 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 builder.Services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ProjectService>();
+builder.Services.AddControllers();
+
 
 
 
 var app = builder.Build();
+
 
 
 // Configure the HTTP request pipeline.
@@ -60,6 +64,7 @@ else
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
@@ -69,6 +74,15 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.MapAdditionalIdentityEndpoints();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.MapControllers(); // Add this line to map controllers
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
 
 app.Run();

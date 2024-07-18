@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FZ2GXNvy8ed/da9QqQ262Fd92nFCVwDc0Dan+wmtpPc=",
+  "Hash": "5aGq9OzkPb1jVO+RPfcgEJkBcoXNX1QaDi6X/mSd2zc=",
   "Source": "CoopWeb",
   "BasePath": "_content/CoopWeb",
   "Mode": "Default",
@@ -1079,6 +1079,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\confirmDialog.js"
+    },
+    {
+      "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\iklfn5uj.vsd.csv",
+      "SourceId": "CoopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\",
+      "BasePath": "_content/CoopWeb",
+      "RelativePath": "uploads/iklfn5uj.vsd.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\iklfn5uj.vsd.csv"
+    },
+    {
+      "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\u5axefkz.w0p.gif",
+      "SourceId": "CoopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\",
+      "BasePath": "_content/CoopWeb",
+      "RelativePath": "uploads/u5axefkz.w0p.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\u5axefkz.w0p.gif"
     }
   ]
 }
