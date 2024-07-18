@@ -462,7 +462,7 @@ namespace CoopWeb.Data
 
             foreach (var student in students)
             {
-                student.PasswordHash = _passwordHasher.HashPassword(student, ".Password123!");
+                student.PasswordHash = _passwordHasher.HashPassword(student, student.StudentID + ".!");
             }
 
             return students;

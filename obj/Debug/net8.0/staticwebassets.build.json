@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5aGq9OzkPb1jVO+RPfcgEJkBcoXNX1QaDi6X/mSd2zc=",
+  "Hash": "XEuR5eDRv8HJOwjvpQpOjA5tnsveHw6jxhLzOa4WB5k=",
   "Source": "CoopWeb",
   "BasePath": "_content/CoopWeb",
   "Mode": "Default",
@@ -1081,6 +1081,44 @@
       "OriginalItemSpec": "wwwroot\\js\\confirmDialog.js"
     },
     {
+      "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\4h21n3uq.i03.csv",
+      "SourceId": "CoopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\",
+      "BasePath": "_content/CoopWeb",
+      "RelativePath": "uploads/4h21n3uq.i03.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\4h21n3uq.i03.csv"
+    },
+    {
+      "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\52s0lq1f.ev4.csv",
+      "SourceId": "CoopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\",
+      "BasePath": "_content/CoopWeb",
+      "RelativePath": "uploads/52s0lq1f.ev4.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\52s0lq1f.ev4.csv"
+    },
+    {
       "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\iklfn5uj.vsd.csv",
       "SourceId": "CoopWeb",
       "SourceType": "Discovered",
@@ -1100,6 +1138,25 @@
       "OriginalItemSpec": "wwwroot\\uploads\\iklfn5uj.vsd.csv"
     },
     {
+      "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\oe5k1p1q.gt4.csv",
+      "SourceId": "CoopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\",
+      "BasePath": "_content/CoopWeb",
+      "RelativePath": "uploads/oe5k1p1q.gt4.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\oe5k1p1q.gt4.csv"
+    },
+    {
       "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\u5axefkz.w0p.gif",
       "SourceId": "CoopWeb",
       "SourceType": "Discovered",
@@ -1117,6 +1174,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\u5axefkz.w0p.gif"
+    },
+    {
+      "Identity": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\xha3vjhv.w0n.jpg",
+      "SourceId": "CoopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\",
+      "BasePath": "_content/CoopWeb",
+      "RelativePath": "uploads/xha3vjhv.w0n.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\xha3vjhv.w0n.jpg"
     }
   ]
 }

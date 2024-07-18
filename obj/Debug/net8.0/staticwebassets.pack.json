@@ -25,12 +25,28 @@
       "PackagePath": "staticwebassets\\js\\confirmDialog.js"
     },
     {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\4h21n3uq.i03.csv",
+      "PackagePath": "staticwebassets\\uploads\\4h21n3uq.i03.csv"
+    },
+    {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\52s0lq1f.ev4.csv",
+      "PackagePath": "staticwebassets\\uploads\\52s0lq1f.ev4.csv"
+    },
+    {
       "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\iklfn5uj.vsd.csv",
       "PackagePath": "staticwebassets\\uploads\\iklfn5uj.vsd.csv"
     },
     {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\oe5k1p1q.gt4.csv",
+      "PackagePath": "staticwebassets\\uploads\\oe5k1p1q.gt4.csv"
+    },
+    {
       "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\u5axefkz.w0p.gif",
       "PackagePath": "staticwebassets\\uploads\\u5axefkz.w0p.gif"
+    },
+    {
+      "Id": "R:\\Motari Team\\090625\\CoopWeb\\CoopWeb\\wwwroot\\uploads\\xha3vjhv.w0n.jpg",
+      "PackagePath": "staticwebassets\\uploads\\xha3vjhv.w0n.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CoopWeb.Microsoft.AspNetCore.StaticWebAssets.props",

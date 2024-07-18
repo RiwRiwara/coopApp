@@ -78,11 +78,5 @@ app.MapAdditionalIdentityEndpoints();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
-
-app.MapControllers(); // Add this line to map controllers
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
-
 
 app.Run();
